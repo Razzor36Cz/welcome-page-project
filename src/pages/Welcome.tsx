@@ -75,27 +75,43 @@ const Welcome = () => {
         <source src="/videos/welcome.mp4" type="video/mp4" />
       </video>
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+      {/* Overlay - stronger at bottom for button visibility */}
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
 
-      {/* Enter Button - Appears after video ends */}
-      {showButton && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center animate-fade-in-up">
-            <h1 className="font-display text-5xl md:text-7xl aluminum-text mb-12 tracking-wide">
-              {t('welcome')}
-            </h1>
-            <Button
-              variant="enter"
-              size="xl"
-              onClick={handleEnter}
-              className="animate-scale-in"
-            >
-              {t('enter')}
-            </Button>
-          </div>
-        </div>
-      )}
+      {/* Enter Button - Reveals at bottom after video ends */}
+      <div 
+        className={`absolute bottom-0 left-0 right-0 flex flex-col items-center justify-end pb-16 md:pb-24 transition-all duration-1000 ${
+          showButton ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20 pointer-events-none'
+        }`}
+      >
+        {/* Decorative line */}
+        <div 
+          className={`w-px h-20 bg-gradient-to-b from-transparent to-aluminum/50 mb-8 transition-all duration-700 delay-300 ${
+            showButton ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0'
+          }`}
+          style={{ transformOrigin: 'top' }}
+        />
+        
+        <Button
+          variant="enter"
+          size="xl"
+          onClick={handleEnter}
+          className={`transition-all duration-700 delay-500 ${
+            showButton ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
+          }`}
+        >
+          {t('enter')}
+        </Button>
+
+        {/* Subtle hint text */}
+        <p 
+          className={`mt-6 text-muted-foreground/50 text-xs tracking-[0.2em] uppercase transition-all duration-700 delay-700 ${
+            showButton ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          {t('welcome')}
+        </p>
+      </div>
 
       {/* Skip button for development */}
       {!videoEnded && (
