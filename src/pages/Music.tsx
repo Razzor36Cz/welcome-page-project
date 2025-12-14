@@ -3,9 +3,13 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { Play, Pause, Upload, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { toast } from '@/hooks/use-toast';
+import { usePageBackground } from '@/hooks/usePageBackground';
+import PageBackground from '@/components/PageBackground';
+import AdminBackgroundUploader from '@/components/AdminBackgroundUploader';
+import EditableText from '@/components/EditableText';
 
 interface Track {
   id: string;
@@ -18,13 +22,14 @@ interface Track {
 const Music = () => {
   const { t } = useLanguage();
   const { isAdmin } = useAuth();
+  const { background, updateBackground, clearBackground } = usePageBackground('music');
   
   const [tracks, setTracks] = useState<Track[]>([
-    { id: '1', title: 'Midnight Dreams', artist: 'Portfolio Artist', duration: '3:45', isPlaying: false },
-    { id: '2', title: 'Electric Soul', artist: 'Portfolio Artist', duration: '4:20', isPlaying: false },
-    { id: '3', title: 'Ocean Waves', artist: 'Portfolio Artist', duration: '5:15', isPlaying: false },
-    { id: '4', title: 'City Lights', artist: 'Portfolio Artist', duration: '3:58', isPlaying: false },
-    { id: '5', title: 'Northern Glow', artist: 'Portfolio Artist', duration: '4:42', isPlaying: false },
+    { id: '1', title: 'Midnight Dreams', artist: 'Jaganos AI', duration: '3:45', isPlaying: false },
+    { id: '2', title: 'Electric Soul', artist: 'Jaganos AI', duration: '4:20', isPlaying: false },
+    { id: '3', title: 'Ocean Waves', artist: 'Jaganos AI', duration: '5:15', isPlaying: false },
+    { id: '4', title: 'City Lights', artist: 'Jaganos AI', duration: '3:58', isPlaying: false },
+    { id: '5', title: 'Northern Glow', artist: 'Jaganos AI', duration: '4:42', isPlaying: false },
   ]);
 
   const togglePlay = (id: string) => {
@@ -39,17 +44,18 @@ const Music = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <PageBackground background={background} />
       <Navigation />
       
       <main className="pt-32 pb-20 px-6">
         <div className="container mx-auto max-w-4xl">
           {/* Header */}
           <div className="text-center mb-16 animate-fade-in-up">
-            <h1 className="font-display text-4xl md:text-6xl aluminum-text mb-4">
+            <EditableText as="h1" className="font-display text-4xl md:text-6xl aluminum-text mb-4">
               {t('music')}
-            </h1>
-            <p className="text-muted-foreground">{t('featuredTracks')}</p>
+            </EditableText>
+            <EditableText as="p" className="text-muted-foreground">{t('featuredTracks')}</EditableText>
             <div className="w-24 h-px bg-gradient-to-r from-transparent via-aluminum to-transparent mx-auto mt-4" />
           </div>
 
@@ -58,7 +64,7 @@ const Music = () => {
             <div className="aluminum-surface rounded-xl p-6 mb-8 animate-fade-in">
               <div className="flex items-center gap-4 mb-4">
                 <Upload className="w-5 h-5 text-aluminum" />
-                <h3 className="font-display text-lg aluminum-text">Upload Music</h3>
+                <EditableText as="h3" className="font-display text-lg aluminum-text">Upload Music</EditableText>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Input
@@ -85,7 +91,7 @@ const Music = () => {
                   }}
                 />
               </div>
-              <p className="text-muted-foreground text-xs mt-2">Supported formats: MP3, WAV, FLAC, AAC</p>
+              <EditableText as="p" className="text-muted-foreground text-xs mt-2">Supported formats: MP3, WAV, FLAC, AAC</EditableText>
             </div>
           )}
 
@@ -111,10 +117,10 @@ const Music = () => {
 
                 {/* Track Info */}
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-display text-lg text-foreground group-hover:aluminum-text transition-colors truncate">
+                  <EditableText as="h3" className="font-display text-lg text-foreground group-hover:aluminum-text transition-colors truncate">
                     {track.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm">{track.artist}</p>
+                  </EditableText>
+                  <EditableText as="p" className="text-muted-foreground text-sm">{track.artist}</EditableText>
                 </div>
 
                 {/* Duration */}
@@ -145,6 +151,14 @@ const Music = () => {
           </div>
         </div>
       </main>
+
+      {isAdmin && (
+        <AdminBackgroundUploader
+          onUpload={updateBackground}
+          onClear={clearBackground}
+          hasBackground={!!background}
+        />
+      )}
     </div>
   );
 };
