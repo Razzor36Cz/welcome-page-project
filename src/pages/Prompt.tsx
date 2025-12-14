@@ -5,6 +5,10 @@ import { Sparkles, Plus, Trash2, Copy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { toast } from '@/hooks/use-toast';
+import { usePageBackground } from '@/hooks/usePageBackground';
+import PageBackground from '@/components/PageBackground';
+import AdminBackgroundUploader from '@/components/AdminBackgroundUploader';
+import EditableText from '@/components/EditableText';
 
 interface Prompt {
   id: string;
@@ -16,6 +20,7 @@ interface Prompt {
 const PromptPage = () => {
   const { t } = useLanguage();
   const { isAdmin } = useAuth();
+  const { background, updateBackground, clearBackground } = usePageBackground('prompt');
   
   const [prompts, setPrompts] = useState<Prompt[]>([
     { 
@@ -57,17 +62,18 @@ const PromptPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <PageBackground background={background} />
       <Navigation />
       
       <main className="pt-32 pb-20 px-6">
         <div className="container mx-auto max-w-4xl">
           {/* Header */}
           <div className="text-center mb-16 animate-fade-in-up">
-            <h1 className="font-display text-4xl md:text-6xl aluminum-text mb-4">
+            <EditableText as="h1" className="font-display text-4xl md:text-6xl aluminum-text mb-4">
               {t('prompt')}
-            </h1>
-            <p className="text-muted-foreground">{t('creativePrompts')}</p>
+            </EditableText>
+            <EditableText as="p" className="text-muted-foreground">{t('creativePrompts')}</EditableText>
             <div className="w-24 h-px bg-gradient-to-r from-transparent via-aluminum to-transparent mx-auto mt-4" />
           </div>
 
@@ -95,12 +101,12 @@ const PromptPage = () => {
                       <Sparkles className="w-5 h-5 text-aluminum" />
                     </div>
                     <div>
-                      <h3 className="font-display text-xl text-foreground group-hover:aluminum-text transition-colors">
+                      <EditableText as="h3" className="font-display text-xl text-foreground group-hover:aluminum-text transition-colors">
                         {prompt.title}
-                      </h3>
-                      <span className="text-xs text-muted-foreground uppercase tracking-wider">
+                      </EditableText>
+                      <EditableText as="span" className="text-xs text-muted-foreground uppercase tracking-wider">
                         {prompt.category}
-                      </span>
+                      </EditableText>
                     </div>
                   </div>
                   
@@ -127,14 +133,22 @@ const PromptPage = () => {
                   </div>
                 </div>
 
-                <p className="text-muted-foreground leading-relaxed pl-13" contentEditable={isAdmin}>
+                <EditableText as="p" className="text-muted-foreground leading-relaxed pl-13">
                   {prompt.content}
-                </p>
+                </EditableText>
               </div>
             ))}
           </div>
         </div>
       </main>
+
+      {isAdmin && (
+        <AdminBackgroundUploader
+          onUpload={updateBackground}
+          onClear={clearBackground}
+          hasBackground={!!background}
+        />
+      )}
     </div>
   );
 };

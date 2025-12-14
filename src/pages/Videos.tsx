@@ -3,9 +3,13 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { Play, Upload, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { toast } from '@/hooks/use-toast';
+import { usePageBackground } from '@/hooks/usePageBackground';
+import PageBackground from '@/components/PageBackground';
+import AdminBackgroundUploader from '@/components/AdminBackgroundUploader';
+import EditableText from '@/components/EditableText';
 
 interface Video {
   id: string;
@@ -17,6 +21,7 @@ interface Video {
 const Videos = () => {
   const { t } = useLanguage();
   const { isAdmin } = useAuth();
+  const { background, updateBackground, clearBackground } = usePageBackground('videos');
   
   const [videos, setVideos] = useState<Video[]>([
     { id: '1', title: 'Project Alpha', thumbnail: '', duration: '2:45' },
@@ -32,17 +37,18 @@ const Videos = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <PageBackground background={background} />
       <Navigation />
       
       <main className="pt-32 pb-20 px-6">
         <div className="container mx-auto">
           {/* Header */}
           <div className="text-center mb-16 animate-fade-in-up">
-            <h1 className="font-display text-4xl md:text-6xl aluminum-text mb-4">
+            <EditableText as="h1" className="font-display text-4xl md:text-6xl aluminum-text mb-4">
               {t('videoGallery')}
-            </h1>
-            <p className="text-muted-foreground">{t('latestWorks')}</p>
+            </EditableText>
+            <EditableText as="p" className="text-muted-foreground">{t('latestWorks')}</EditableText>
             <div className="w-24 h-px bg-gradient-to-r from-transparent via-aluminum to-transparent mx-auto mt-4" />
           </div>
 
@@ -51,7 +57,7 @@ const Videos = () => {
             <div className="aluminum-surface rounded-xl p-6 mb-8 animate-fade-in">
               <div className="flex items-center gap-4 mb-4">
                 <Upload className="w-5 h-5 text-aluminum" />
-                <h3 className="font-display text-lg aluminum-text">Upload Video</h3>
+                <EditableText as="h3" className="font-display text-lg aluminum-text">Upload Video</EditableText>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Input
@@ -77,7 +83,7 @@ const Videos = () => {
                   }}
                 />
               </div>
-              <p className="text-muted-foreground text-xs mt-2">Supported formats: MP4, WebM, MOV</p>
+              <EditableText as="p" className="text-muted-foreground text-xs mt-2">Supported formats: MP4, WebM, MOV</EditableText>
             </div>
           )}
 
@@ -108,9 +114,9 @@ const Videos = () => {
 
                 {/* Info */}
                 <div className="p-4 flex items-center justify-between">
-                  <h3 className="font-display text-lg text-foreground group-hover:aluminum-text transition-colors">
+                  <EditableText as="h3" className="font-display text-lg text-foreground group-hover:aluminum-text transition-colors">
                     {video.title}
-                  </h3>
+                  </EditableText>
                   
                   {isAdmin && (
                     <Button
@@ -128,6 +134,14 @@ const Videos = () => {
           </div>
         </div>
       </main>
+
+      {isAdmin && (
+        <AdminBackgroundUploader
+          onUpload={updateBackground}
+          onClear={clearBackground}
+          hasBackground={!!background}
+        />
+      )}
     </div>
   );
 };
