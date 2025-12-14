@@ -31,7 +31,7 @@ const Welcome = () => {
   };
 
   const handleEnter = () => {
-    navigate('/home');
+    navigate('/music');
   };
 
   return (

@@ -33,7 +33,7 @@ const Navigation = () => {
             to="/home" 
             className="font-display text-xl aluminum-text tracking-wider"
           >
-            PORTFOLIO
+            JAGANOS AI
           </Link>
 
           {/* Navigation Links */}

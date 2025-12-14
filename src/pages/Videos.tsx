@@ -1,9 +1,11 @@
 import Navigation from '@/components/Navigation';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
-import { Play, Plus, Trash2 } from 'lucide-react';
+import { Play, Upload, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import { Input } from '@/components/ui/input';
+import { toast } from '@/hooks/use-toast';
 
 interface Video {
   id: string;
@@ -44,13 +46,38 @@ const Videos = () => {
             <div className="w-24 h-px bg-gradient-to-r from-transparent via-aluminum to-transparent mx-auto mt-4" />
           </div>
 
-          {/* Admin Add Button */}
+          {/* Admin File Uploader */}
           {isAdmin && (
-            <div className="flex justify-end mb-8">
-              <Button variant="luxury" className="gap-2">
-                <Plus className="w-4 h-4" />
-                Add Video
-              </Button>
+            <div className="aluminum-surface rounded-xl p-6 mb-8 animate-fade-in">
+              <div className="flex items-center gap-4 mb-4">
+                <Upload className="w-5 h-5 text-aluminum" />
+                <h3 className="font-display text-lg aluminum-text">Upload Video</h3>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Input
+                  type="file"
+                  accept="video/*"
+                  className="bg-background border-aluminum/20 focus:border-aluminum/40 file:bg-aluminum/10 file:border-0 file:text-foreground file:mr-4 file:px-4 file:py-2 file:rounded-md file:cursor-pointer"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      const newVideo = {
+                        id: Date.now().toString(),
+                        title: file.name.replace(/\.[^/.]+$/, ''),
+                        thumbnail: '',
+                        duration: '0:00'
+                      };
+                      setVideos([newVideo, ...videos]);
+                      toast({
+                        title: "Video uploaded",
+                        description: `${file.name} has been added to the gallery`,
+                      });
+                      e.target.value = '';
+                    }
+                  }}
+                />
+              </div>
+              <p className="text-muted-foreground text-xs mt-2">Supported formats: MP4, WebM, MOV</p>
             </div>
           )}
 

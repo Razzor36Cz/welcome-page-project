@@ -8,8 +8,8 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Simple demo password - in production this should use proper authentication
-const ADMIN_PASSWORD = 'admin123';
+// Admin password
+const ADMIN_PASSWORD = 'JaganosAi';
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAdmin, setIsAdmin] = useState(false);
