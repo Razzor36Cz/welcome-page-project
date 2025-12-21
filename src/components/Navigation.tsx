@@ -90,17 +90,7 @@ const Navigation = () => {
                   {t('logout')}
                 </Button>
               </div>
-            ) : (
-              <Link to="/admin-login">
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  className="opacity-10 hover:opacity-100 transition-opacity duration-500"
-                >
-                  <Settings className="w-3 h-3" />
-                </Button>
-              </Link>
-            )}
+            ) : null}
           </div>
         </div>
 
