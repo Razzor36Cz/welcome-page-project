@@ -68,6 +68,7 @@ const Welcome = () => {
         ref={videoRef}
         className="absolute inset-0 w-full h-full object-cover"
         autoPlay
+        muted
         playsInline
         onEnded={handleVideoEnd}
       >
