@@ -167,6 +167,16 @@ add_action( 'init', 'jaganos_register_post_types' );
  */
 function jaganos_widgets_init() {
     register_sidebar( array(
+        'name'          => esc_html__( 'Sidebar', 'jaganos-ai' ),
+        'id'            => 'sidebar-1',
+        'description'   => esc_html__( 'Add widgets here for blog sidebar.', 'jaganos-ai' ),
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h4 class="widget-title">',
+        'after_title'   => '</h4>',
+    ) );
+
+    register_sidebar( array(
         'name'          => esc_html__( 'Footer Widget 1', 'jaganos-ai' ),
         'id'            => 'footer-1',
         'description'   => esc_html__( 'First footer widget area', 'jaganos-ai' ),

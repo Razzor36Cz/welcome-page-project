@@ -1,0 +1,25 @@
+/* Editor styles for Gutenberg */
+
+.editor-styles-wrapper {
+    background-color: #0d0d0d;
+    color: #f2f2f2;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3,
+.editor-styles-wrapper h4,
+.editor-styles-wrapper h5,
+.editor-styles-wrapper h6 {
+    font-family: 'Playfair Display', Georgia, serif;
+    color: #f2f2f2;
+}
+
+.editor-styles-wrapper p {
+    color: #a6a6a6;
+}
+
+.editor-styles-wrapper a {
+    color: #c7c7c7;
+}
