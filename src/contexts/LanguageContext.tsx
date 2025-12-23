@@ -139,6 +139,13 @@ const translations: Translations = {
     CZ: 'Admin Panel',
     PL: 'Panel Admin',
   },
+  performance: {
+    EN: 'Performance',
+    FR: 'Performance',
+    DE: 'Leistung',
+    CZ: 'Výkon',
+    PL: 'Wydajność',
+  },
 };
 
 interface LanguageContextType {

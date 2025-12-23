@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
-import { Upload, Image, Video, FileText, Settings } from 'lucide-react';
+import { Upload, Image, Video, FileText, Settings, BarChart3 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Admin = () => {
@@ -23,6 +23,7 @@ const Admin = () => {
     { icon: Video, title: 'Manage Videos', description: 'Upload, edit, or delete videos', path: '/videos' },
     { icon: Image, title: 'Manage Photos', description: 'Upload, edit, or delete photos', path: '/videos' },
     { icon: FileText, title: 'Edit Content', description: 'Update text and descriptions', path: '/about' },
+    { icon: BarChart3, title: 'Performance', description: 'View website analytics and statistics', path: '/performance' },
     { icon: Settings, title: 'Settings', description: 'Configure site settings', path: '/admin' },
   ];
 
