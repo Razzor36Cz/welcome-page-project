@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAGA_NOS | Kreativní Portfolio</title>
+    <meta name="description" content="Luxusní kreativní portfolio prezentující video produkci, hudbu a digitální umění. Zažijte ohromující vizuální příběhy.">
+    <meta name="author" content="JAGA_NOS">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="JAGA_NOS | Kreativní Portfolio">
+    <meta property="og:description" content="Luxusní kreativní portfolio prezentující video produkci, hudbu a digitální umění.">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --background: 0 0% 3%;
+            --foreground: 60 9% 98%;
+            --card: 0 0% 5%;
+            --card-foreground: 60 9% 98%;
+            --primary: 47 100% 50%;
+            --primary-foreground: 0 0% 0%;
+            --secondary: 0 0% 10%;
+            --secondary-foreground: 60 9% 98%;
+            --muted: 0 0% 15%;
+            --muted-foreground: 0 0% 65%;
+            --accent: 47 100% 50%;
+            --border: 0 0% 15%;
+            --ring: 47 100% 50%;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* Welcome Page */
+        .welcome-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .welcome-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+        }
+        
+        .welcome-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, 
+                hsla(var(--background), 0.3) 0%,
+                hsla(var(--background), 0.6) 50%,
+                hsla(var(--background), 0.9) 100%
+            );
+        }
+        
+        .welcome-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .welcome-title {
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(47, 100%, 70%));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .welcome-subtitle {
+            font-size: 1.25rem;
+            color: hsl(var(--muted-foreground));
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+        
+        .enter-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(47, 100%, 60%));
+            color: hsl(var(--primary-foreground));
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+        
+        .enter-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px hsla(var(--primary), 0.5);
+        }
+        
+        /* Navigation */
+        .navigation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: hsla(var(--background), 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid hsla(var(--border), 0.5);
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(47, 100%, 70%));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: hsl(var(--muted-foreground));
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: hsl(var(--primary));
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: hsl(var(--primary));
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .language-toggle {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid hsla(var(--border), 0.5);
+            color: hsl(var(--muted-foreground));
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .lang-btn.active,
+        .lang-btn:hover {
+            background: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+            border-color: hsl(var(--primary));
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: hsl(var(--foreground));
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        .hamburger {
+            width: 24px;
+            height: 2px;
+            background: currentColor;
+            position: relative;
+        }
+        
+        .hamburger::before,
+        .hamburger::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: currentColor;
+            left: 0;
+        }
+        
+        .hamburger::before { top: -8px; }
+        .hamburger::after { bottom: -8px; }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: hsla(var(--background), 0.95);
+                backdrop-filter: blur(12px);
+                padding: 2rem;
+                gap: 1.5rem;
+            }
+        }
+        
+        /* Page Layout */
+        .page {
+            min-height: 100vh;
+            padding-top: 100px;
+            padding-bottom: 100px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .page-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(47, 100%, 70%));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .page-subtitle {
+            text-align: center;
+            color: hsl(var(--muted-foreground));
+            margin-bottom: 4rem;
+            font-size: 1.125rem;
+        }
+        
+        /* Home Page */
+        .home-hero {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-title span {
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(47, 100%, 70%));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-description {
+            font-size: 1.25rem;
+            color: hsl(var(--muted-foreground));
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(47, 100%, 60%));
+            color: hsl(var(--primary-foreground));
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px hsla(var(--primary), 0.3);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: hsl(var(--foreground));
+            border: 1px solid hsla(var(--border), 0.5);
+        }
+        
+        .btn-outline:hover {
+            border-color: hsl(var(--primary));
+            color: hsl(var(--primary));
+        }
+        
+        /* Grid Layouts */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+        
+        /* Cards */
+        .card {
+            background: hsla(var(--card), 0.8);
+            border: 1px solid hsla(var(--border), 0.5);
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: hsla(var(--primary), 0.5);
+            box-shadow: 0 20px 40px hsla(var(--primary), 0.1);
+        }
+        
+        .card-image {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-description {
+            color: hsl(var(--muted-foreground));
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+        
+        /* Music Player Card */
+        .music-card {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: hsla(var(--card), 0.8);
+            border: 1px solid hsla(var(--border), 0.5);
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .music-card:hover {
+            border-color: hsla(var(--primary), 0.5);
+        }
+        
+        .music-cover {
+            width: 80px;
+            height: 80px;
+            border-radius: 0.5rem;
+            object-fit: cover;
+            background: hsl(var(--secondary));
+        }
+        
+        .music-info {
+            flex: 1;
+        }
+        
+        .music-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .music-artist {
+            color: hsl(var(--muted-foreground));
+            font-size: 0.875rem;
+        }
+        
+        .play-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .play-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px hsla(var(--primary), 0.5);
+        }
+        
+        /* About Page */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        @media (max-width: 768px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .about-image {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 1rem;
+            border: 1px solid hsla(var(--border), 0.5);
+        }
+        
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(47, 100%, 70%));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .about-text p {
+            color: hsl(var(--muted-foreground));
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        
+        /* Social Links */
+        .social-links {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 1rem 2rem;
+            background: hsla(var(--background), 0.2);
+            backdrop-filter: blur(12px);
+            border-radius: 9999px;
+            border: 1px solid hsla(var(--foreground), 0.1);
+            box-shadow: 0 10px 40px hsla(0, 0%, 0%, 0.3);
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            transform: scale(1.2);
+        }
+        
+        .social-link svg {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .social-link.youtube svg { color: #FF0000; }
+        .social-link.instagram svg { color: #E4405F; }
+        .social-link.facebook svg { color: #1877F2; }
+        
+        .social-link:hover svg {
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+        
+        /* Footer */
+        .footer {
+            background: hsla(var(--card), 0.5);
+            border-top: 1px solid hsla(var(--border), 0.5);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(47, 100%, 70%));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-text {
+            color: hsl(var(--muted-foreground));
+            font-size: 0.875rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        /* Prompt Page */
+        .prompt-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .prompt-card {
+            background: hsla(var(--card), 0.8);
+            border: 1px solid hsla(var(--border), 0.5);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .prompt-card:hover {
+            border-color: hsla(var(--primary), 0.5);
+        }
+        
+        .prompt-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: hsl(var(--primary));
+        }
+        
+        .prompt-text {
+            color: hsl(var(--muted-foreground));
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+        
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mt-8 { margin-top: 2rem; }
+        
+        /* Responsive */
+        @media (max-width: 640px) {
+            .grid-2,
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            
+            .social-links {
+                gap: 1.5rem;
+                padding: 0.75rem 1.5rem;
+            }
+            
+            .social-link svg {
+                width: 32px;
+                height: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Page -->
+    <section id="welcome" class="welcome-page">
+        <video class="welcome-video" autoplay muted loop playsinline>
+            <source src="videos/welcome.mp4" type="video/mp4">
+        </video>
+        <div class="welcome-overlay"></div>
+        <div class="welcome-content">
+            <h1 class="welcome-title">JAGA_NOS</h1>
+            <p class="welcome-subtitle">Video • Hudba • Digitální Umění</p>
+            <a href="#home" class="enter-btn" onclick="showPage('home')">
+                Vstoupit
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Navigation -->
+    <nav class="navigation" id="navigation" style="display: none;">
+        <a href="#home" class="logo" onclick="showPage('home')">JAGA_NOS</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home" class="nav-link active" onclick="showPage('home')">Domů</a></li>
+            <li><a href="#about" class="nav-link" onclick="showPage('about')">O mně</a></li>
+            <li><a href="#videos" class="nav-link" onclick="showPage('videos')">Videa</a></li>
+            <li><a href="#music" class="nav-link" onclick="showPage('music')">Hudba</a></li>
+            <li><a href="#prompt" class="nav-link" onclick="showPage('prompt')">Prompt</a></li>
+        </ul>
+        <div class="language-toggle">
+            <button class="lang-btn active" onclick="setLanguage('CZ')">CZ</button>
+            <button class="lang-btn" onclick="setLanguage('EN')">EN</button>
+        </div>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <span class="hamburger"></span>
+        </button>
+    </nav>
+
+    <!-- Home Page -->
+    <section id="home" class="page" style="display: none;">
+        <div class="home-hero">
+            <h1 class="hero-title fade-in">
+                Vytvářím <span>Digitální</span><br>Zážitky
+            </h1>
+            <p class="hero-description fade-in">
+                Vítejte v mém kreativním prostoru. Prozkoumejte mou sbírku videí, hudby a digitálního umění vytvořeného s vášní a inovací.
+            </p>
+            <div class="hero-buttons fade-in">
+                <a href="#videos" class="btn btn-primary" onclick="showPage('videos')">
+                    Sledovat Videa
+                </a>
+                <a href="#music" class="btn btn-outline" onclick="showPage('music')">
+                    Poslouchat Hudbu
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Page -->
+    <section id="about" class="page" style="display: none;">
+        <div class="container">
+            <h1 class="page-title">O mně</h1>
+            <p class="page-subtitle">Poznejte příběh za kreativitou</p>
+            
+            <div class="about-content">
+                <div class="about-image-container">
+                    <div class="about-image" style="background: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--card))); display: flex; align-items: center; justify-content: center; font-size: 4rem;">
+                        🎬
+                    </div>
+                </div>
+                <div class="about-text">
+                    <h2>Ahoj, jsem JAGA_NOS</h2>
+                    <p>
+                        Jsem kreativní tvůrce zaměřený na video produkci, hudbu a digitální umění. 
+                        Moje práce kombinuje moderní technologie s uměleckým vizí k vytváření 
+                        unikátních digitálních zážitků.
+                    </p>
+                    <p>
+                        Věřím v sílu kreativity a neustále hledám nové způsoby, jak spojit 
+                        různá média do harmonického celku. Každý projekt je pro mě příležitostí 
+                        prozkoumat nové možnosti a překonat hranice tradičního umění.
+                    </p>
+                    <a href="#videos" class="btn btn-primary mt-8" onclick="showPage('videos')">
+                        Prozkoumat Práce
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos Page -->
+    <section id="videos" class="page" style="display: none;">
+        <div class="container">
+            <h1 class="page-title">Videa</h1>
+            <p class="page-subtitle">Prozkoumejte mou video tvorbu</p>
+            
+            <div class="grid-3">
+                <article class="card">
+                    <div class="card-image" style="background: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--card))); display: flex; align-items: center; justify-content: center; font-size: 3rem;">
+                        🎥
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Kreativní Video 1</h3>
+                        <p class="card-description">Unikátní vizuální příběh kombinující moderní techniky s uměleckým výrazem.</p>
+                    </div>
+                </article>
+                
+                <article class="card">
+                    <div class="card-image" style="background: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--card))); display: flex; align-items: center; justify-content: center; font-size: 3rem;">
+                        🎬
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Kreativní Video 2</h3>
+                        <p class="card-description">Experimentální práce zkoumající hranice digitálního umění.</p>
+                    </div>
+                </article>
+                
+                <article class="card">
+                    <div class="card-image" style="background: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--card))); display: flex; align-items: center; justify-content: center; font-size: 3rem;">
+                        🎞️
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Kreativní Video 3</h3>
+                        <p class="card-description">Vizuální cesta skrze zvuk a obraz.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Page -->
+    <section id="music" class="page" style="display: none;">
+        <div class="container">
+            <h1 class="page-title">Hudba</h1>
+            <p class="page-subtitle">Poslechněte si mou hudební tvorbu</p>
+            
+            <div class="grid-2">
+                <div class="music-card">
+                    <div class="music-cover" style="background: linear-gradient(135deg, hsl(var(--primary)), hsl(47, 100%, 70%)); display: flex; align-items: center; justify-content: center; font-size: 2rem;">
+                        🎵
+                    </div>
+                    <div class="music-info">
+                        <h3 class="music-title">Skladba 1</h3>
+                        <p class="music-artist">JAGA_NOS</p>
+                    </div>
+                    <button class="play-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="5 3 19 12 5 21 5 3"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="music-card">
+                    <div class="music-cover" style="background: linear-gradient(135deg, hsl(var(--primary)), hsl(47, 100%, 70%)); display: flex; align-items: center; justify-content: center; font-size: 2rem;">
+                        🎶
+                    </div>
+                    <div class="music-info">
+                        <h3 class="music-title">Skladba 2</h3>
+                        <p class="music-artist">JAGA_NOS</p>
+                    </div>
+                    <button class="play-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="5 3 19 12 5 21 5 3"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="music-card">
+                    <div class="music-cover" style="background: linear-gradient(135deg, hsl(var(--primary)), hsl(47, 100%, 70%)); display: flex; align-items: center; justify-content: center; font-size: 2rem;">
+                        🎹
+                    </div>
+                    <div class="music-info">
+                        <h3 class="music-title">Skladba 3</h3>
+                        <p class="music-artist">JAGA_NOS</p>
+                    </div>
+                    <button class="play-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="5 3 19 12 5 21 5 3"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="music-card">
+                    <div class="music-cover" style="background: linear-gradient(135deg, hsl(var(--primary)), hsl(47, 100%, 70%)); display: flex; align-items: center; justify-content: center; font-size: 2rem;">
+                        🎧
+                    </div>
+                    <div class="music-info">
+                        <h3 class="music-title">Skladba 4</h3>
+                        <p class="music-artist">JAGA_NOS</p>
+                    </div>
+                    <button class="play-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="5 3 19 12 5 21 5 3"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prompt Page -->
+    <section id="prompt" class="page" style="display: none;">
+        <div class="container">
+            <h1 class="page-title">Prompt</h1>
+            <p class="page-subtitle">Kolekce AI promptů pro kreativní tvorbu</p>
+            
+            <div class="prompt-grid">
+                <div class="prompt-card">
+                    <h3 class="prompt-title">Vizuální Umění</h3>
+                    <p class="prompt-text">Vytvoř surrealistický obraz kombinující prvky přírody s futuristickou architekturou...</p>
+                </div>
+                
+                <div class="prompt-card">
+                    <h3 class="prompt-title">Hudební Inspirace</h3>
+                    <p class="prompt-text">Komponuj ambientní skladbu inspirovanou zvuky noční přírody...</p>
+                </div>
+                
+                <div class="prompt-card">
+                    <h3 class="prompt-title">Video Koncept</h3>
+                    <p class="prompt-text">Navrhni vizuální příběh o cestě světla skrze různá prostředí...</p>
+                </div>
+                
+                <div class="prompt-card">
+                    <h3 class="prompt-title">Digitální Design</h3>
+                    <p class="prompt-text">Vytvoř moderní grafický design spojující minimalism s organickými tvary...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Links -->
+    <div class="social-links" id="socialLinks" style="display: none;">
+        <a href="https://www.youtube.com/@martinjakoubek116" target="_blank" rel="noopener noreferrer" class="social-link youtube" title="YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+        </a>
+        <a href="https://www.instagram.com/jaga_nos?igsh=MW1wcHZ4bnRwaTZxdQ==" target="_blank" rel="noopener noreferrer" class="social-link instagram" title="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=61582613908107" target="_blank" rel="noopener noreferrer" class="social-link facebook" title="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer" style="display: none;">
+        <div class="footer-logo">JAGA_NOS</div>
+        <p class="footer-text">© 2024 JAGA_NOS. Všechna práva vyhrazena.</p>
+    </footer>
+
+    <script>
+        // Page Navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page, #welcome').forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            // Show/hide navigation based on page
+            const navigation = document.getElementById('navigation');
+            const socialLinks = document.getElementById('socialLinks');
+            const footer = document.getElementById('footer');
+            
+            if (pageId === 'welcome') {
+                document.getElementById('welcome').style.display = 'flex';
+                navigation.style.display = 'none';
+                socialLinks.style.display = 'none';
+                footer.style.display = 'none';
+            } else {
+                document.getElementById(pageId).style.display = 'block';
+                navigation.style.display = 'flex';
+                socialLinks.style.display = 'flex';
+                footer.style.display = 'block';
+            }
+            
+            // Update active nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + pageId) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+            
+            // Close mobile menu
+            document.getElementById('navLinks').classList.remove('active');
+        }
+        
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+        
+        // Language Toggle
+        let currentLanguage = 'CZ';
+        
+        const translations = {
+            CZ: {
+                enter: 'Vstoupit',
+                home: 'Domů',
+                about: 'O mně',
+                videos: 'Videa',
+                music: 'Hudba',
+                prompt: 'Prompt',
+                heroTitle: 'Vytvářím Digitální Zážitky',
+                heroDescription: 'Vítejte v mém kreativním prostoru. Prozkoumejte mou sbírku videí, hudby a digitálního umění.',
+                watchVideos: 'Sledovat Videa',
+                listenMusic: 'Poslouchat Hudbu'
+            },
+            EN: {
+                enter: 'Enter',
+                home: 'Home',
+                about: 'About',
+                videos: 'Videos',
+                music: 'Music',
+                prompt: 'Prompt',
+                heroTitle: 'Creating Digital Experiences',
+                heroDescription: 'Welcome to my creative space. Explore my collection of videos, music and digital art.',
+                watchVideos: 'Watch Videos',
+                listenMusic: 'Listen to Music'
+            }
+        };
+        
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update language buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent === lang) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Store language preference
+            localStorage.setItem('language', lang);
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check for stored language
+            const storedLang = localStorage.getItem('language');
+            if (storedLang) {
+                setLanguage(storedLang);
+            }
+            
+            // Show welcome page by default
+            showPage('welcome');
+        });
+        
+        // Handle browser back/forward
+        window.addEventListener('hashchange', function() {
+            const hash = window.location.hash.slice(1) || 'welcome';
+            showPage(hash);
+        });
+    </script>
+</body>
+</html>
