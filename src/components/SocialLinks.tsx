@@ -26,7 +26,7 @@ const SocialLinks = () => {
   ];
 
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-8">
+    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-8 bg-background/20 backdrop-blur-md px-8 py-4 rounded-full border border-foreground/10 shadow-lg">
       {socialLinks.map(({ icon: Icon, url, label, color, hoverColor }) => (
         <a
           key={label}
