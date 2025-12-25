@@ -1,39 +1,34 @@
 <?php
 /**
- * Jaganos AI Theme Functions
+ * Jaganos AI Block Theme Functions
  *
- * @package Jaganos_AI_Theme
- * @version 1.0.0
+ * @package Jaganos_AI_Block_Theme
+ * @version 2.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-/**
- * Theme Constants
- */
-define( 'JAGANOS_VERSION', '1.0.0' );
+define( 'JAGANOS_VERSION', '2.0.0' );
 define( 'JAGANOS_DIR', get_template_directory() );
 define( 'JAGANOS_URI', get_template_directory_uri() );
 
 /**
  * Theme Setup
  */
-function jaganos_theme_setup() {
-    // Make theme available for translation - default to Czech
+function jaganos_setup() {
+    // Translations - default Czech
     load_theme_textdomain( 'jaganos-ai', JAGANOS_DIR . '/languages' );
 
-    // Add default posts and comments RSS feed links to head
-    add_theme_support( 'automatic-feed-links' );
-
-    // Let WordPress manage the document title
-    add_theme_support( 'title-tag' );
-
-    // Enable support for Post Thumbnails
+    // Block theme support
+    add_theme_support( 'wp-block-styles' );
+    add_theme_support( 'editor-styles' );
     add_theme_support( 'post-thumbnails' );
+    add_theme_support( 'responsive-embeds' );
+    add_theme_support( 'html5', array( 'style', 'script', 'search-form', 'gallery', 'caption' ) );
 
-    // Custom logo support
+    // Custom logo
     add_theme_support( 'custom-logo', array(
         'height'      => 100,
         'width'       => 300,
@@ -41,41 +36,12 @@ function jaganos_theme_setup() {
         'flex-width'  => true,
     ) );
 
-    // Custom background support
-    add_theme_support( 'custom-background', array(
-        'default-color' => '080808',
-    ) );
-
-    // HTML5 support
-    add_theme_support( 'html5', array(
-        'search-form',
-        'comment-form',
-        'comment-list',
-        'gallery',
-        'caption',
-        'style',
-        'script',
-    ) );
-
-    // Register navigation menus
-    register_nav_menus( array(
-        'primary' => esc_html__( 'Primary Menu', 'jaganos-ai' ),
-        'footer'  => esc_html__( 'Footer Menu', 'jaganos-ai' ),
-    ) );
-
-    // Add support for responsive embeds
-    add_theme_support( 'responsive-embeds' );
-
-    // Add support for editor styles
-    add_theme_support( 'editor-styles' );
-    add_editor_style( 'assets/css/editor-style.css' );
-
-    // Custom image sizes
+    // Image sizes
     add_image_size( 'jaganos-hero', 1920, 1080, true );
     add_image_size( 'jaganos-card', 600, 400, true );
     add_image_size( 'jaganos-video-thumb', 640, 360, true );
 }
-add_action( 'after_setup_theme', 'jaganos_theme_setup' );
+add_action( 'after_setup_theme', 'jaganos_setup' );
 
 /**
  * Set default locale to Czech
@@ -89,26 +55,10 @@ function jaganos_default_locale( $locale ) {
 add_filter( 'locale', 'jaganos_default_locale' );
 
 /**
- * Enqueue Scripts and Styles
+ * Enqueue frontend assets
  */
 function jaganos_enqueue_assets() {
-    // Google Fonts
-    wp_enqueue_style(
-        'jaganos-google-fonts',
-        'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap',
-        array(),
-        null
-    );
-
-    // Main Stylesheet
-    wp_enqueue_style(
-        'jaganos-style',
-        get_stylesheet_uri(),
-        array( 'jaganos-google-fonts' ),
-        JAGANOS_VERSION
-    );
-
-    // Theme JavaScript
+    // Main theme script
     wp_enqueue_script(
         'jaganos-script',
         JAGANOS_URI . '/assets/js/main.js',
@@ -117,140 +67,136 @@ function jaganos_enqueue_assets() {
         true
     );
 
-    // Localize script for AJAX and translations
+    // Localize translations
     wp_localize_script( 'jaganos-script', 'jaganosData', array(
-        'ajaxurl' => admin_url( 'admin-ajax.php' ),
-        'nonce'   => wp_create_nonce( 'jaganos_nonce' ),
-        'homeUrl' => home_url( '/' ),
+        'ajaxurl'      => admin_url( 'admin-ajax.php' ),
+        'nonce'        => wp_create_nonce( 'jaganos_nonce' ),
+        'homeUrl'      => home_url( '/' ),
         'translations' => jaganos_get_translations(),
-        'currentLang' => jaganos_get_current_language(),
+        'currentLang'  => jaganos_get_current_language(),
     ) );
-
-    // Comment reply script
-    if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-        wp_enqueue_script( 'comment-reply' );
-    }
 }
 add_action( 'wp_enqueue_scripts', 'jaganos_enqueue_assets' );
 
 /**
- * Get all translations for JavaScript
+ * Enqueue block editor assets
+ */
+function jaganos_editor_assets() {
+    wp_enqueue_style(
+        'jaganos-editor',
+        JAGANOS_URI . '/assets/css/editor.css',
+        array(),
+        JAGANOS_VERSION
+    );
+}
+add_action( 'enqueue_block_editor_assets', 'jaganos_editor_assets' );
+
+/**
+ * Get translations array
  */
 function jaganos_get_translations() {
     return array(
         'EN' => array(
-            'enter' => 'Enter',
-            'welcome' => 'Welcome to the Experience',
-            'aboutMe' => 'About Me',
-            'videoGallery' => 'Video Gallery',
-            'music' => 'Music',
-            'prompt' => 'Prompt',
-            'biography' => 'Biography',
-            'biographyText' => 'A creative professional passionate about video production, music, and digital art. With years of experience in crafting visual and audio experiences, I bring unique perspectives to every project.',
-            'skills' => 'Skills',
-            'contact' => 'Contact',
-            'latestWorks' => 'Latest Works',
-            'featuredTracks' => 'Featured Tracks',
+            'enter'           => 'Enter',
+            'welcome'         => 'Welcome to the Experience',
+            'aboutMe'         => 'About Me',
+            'videoGallery'    => 'Video Gallery',
+            'music'           => 'Music',
+            'prompt'          => 'Prompt',
+            'biography'       => 'Biography',
+            'biographyText'   => 'A creative professional passionate about video production, music, and digital art.',
+            'skills'          => 'Skills',
+            'contact'         => 'Contact',
+            'latestWorks'     => 'Latest Works',
+            'featuredTracks'  => 'Featured Tracks',
             'creativePrompts' => 'Creative Prompts',
-            'logout' => 'Logout',
-            'copied' => 'Copied!',
-            'promptCopied' => 'Prompt copied to clipboard',
+            'copied'          => 'Copied!',
+            'promptCopied'    => 'Prompt copied to clipboard',
         ),
         'CZ' => array(
-            'enter' => 'Vstoupit',
-            'welcome' => 'Vítejte v zážitku',
-            'aboutMe' => 'O mně',
-            'videoGallery' => 'Video galerie',
-            'music' => 'Hudba',
-            'prompt' => 'Prompt',
-            'biography' => 'Biografie',
-            'biographyText' => 'Kreativní profesionál s vášní pro video produkci, hudbu a digitální umění. S mnohaletými zkušenostmi v tvorbě vizuálních a zvukových zážitků přináším jedinečný pohled do každého projektu.',
-            'skills' => 'Dovednosti',
-            'contact' => 'Kontakt',
-            'latestWorks' => 'Nejnovější práce',
-            'featuredTracks' => 'Vybrané skladby',
+            'enter'           => 'Vstoupit',
+            'welcome'         => 'Vítejte v zážitku',
+            'aboutMe'         => 'O mně',
+            'videoGallery'    => 'Video galerie',
+            'music'           => 'Hudba',
+            'prompt'          => 'Prompt',
+            'biography'       => 'Biografie',
+            'biographyText'   => 'Kreativní profesionál s vášní pro video produkci, hudbu a digitální umění.',
+            'skills'          => 'Dovednosti',
+            'contact'         => 'Kontakt',
+            'latestWorks'     => 'Nejnovější práce',
+            'featuredTracks'  => 'Vybrané skladby',
             'creativePrompts' => 'Kreativní prompty',
-            'logout' => 'Odhlásit',
-            'copied' => 'Zkopírováno!',
-            'promptCopied' => 'Prompt zkopírován do schránky',
+            'copied'          => 'Zkopírováno!',
+            'promptCopied'    => 'Prompt zkopírován do schránky',
         ),
         'DE' => array(
-            'enter' => 'Eintreten',
-            'welcome' => 'Willkommen zum Erlebnis',
-            'aboutMe' => 'Über mich',
-            'videoGallery' => 'Videogalerie',
-            'music' => 'Musik',
-            'prompt' => 'Prompt',
-            'biography' => 'Biografie',
-            'biographyText' => 'Ein kreativer Profi mit Leidenschaft für Videoproduktion, Musik und digitale Kunst. Mit jahrelanger Erfahrung in der Gestaltung visueller und akustischer Erlebnisse bringe ich einzigartige Perspektiven in jedes Projekt.',
-            'skills' => 'Fähigkeiten',
-            'contact' => 'Kontakt',
-            'latestWorks' => 'Neueste Arbeiten',
-            'featuredTracks' => 'Ausgewählte Titel',
+            'enter'           => 'Eintreten',
+            'welcome'         => 'Willkommen zum Erlebnis',
+            'aboutMe'         => 'Über mich',
+            'videoGallery'    => 'Videogalerie',
+            'music'           => 'Musik',
+            'prompt'          => 'Prompt',
+            'biography'       => 'Biografie',
+            'biographyText'   => 'Ein kreativer Profi mit Leidenschaft für Videoproduktion, Musik und digitale Kunst.',
+            'skills'          => 'Fähigkeiten',
+            'contact'         => 'Kontakt',
+            'latestWorks'     => 'Neueste Arbeiten',
+            'featuredTracks'  => 'Ausgewählte Titel',
             'creativePrompts' => 'Kreative Prompts',
-            'logout' => 'Abmelden',
-            'copied' => 'Kopiert!',
-            'promptCopied' => 'Prompt in die Zwischenablage kopiert',
+            'copied'          => 'Kopiert!',
+            'promptCopied'    => 'Prompt in die Zwischenablage kopiert',
         ),
         'FR' => array(
-            'enter' => 'Entrer',
-            'welcome' => 'Bienvenue dans l\'expérience',
-            'aboutMe' => 'À propos',
-            'videoGallery' => 'Galerie vidéo',
-            'music' => 'Musique',
-            'prompt' => 'Prompt',
-            'biography' => 'Biographie',
-            'biographyText' => 'Un professionnel créatif passionné par la production vidéo, la musique et l\'art numérique. Avec des années d\'expérience dans la création d\'expériences visuelles et sonores, j\'apporte des perspectives uniques à chaque projet.',
-            'skills' => 'Compétences',
-            'contact' => 'Contact',
-            'latestWorks' => 'Dernières œuvres',
-            'featuredTracks' => 'Titres en vedette',
+            'enter'           => 'Entrer',
+            'welcome'         => 'Bienvenue',
+            'aboutMe'         => 'À propos',
+            'videoGallery'    => 'Galerie vidéo',
+            'music'           => 'Musique',
+            'prompt'          => 'Prompt',
+            'biography'       => 'Biographie',
+            'biographyText'   => 'Un professionnel créatif passionné par la production vidéo, la musique et l\'art numérique.',
+            'skills'          => 'Compétences',
+            'contact'         => 'Contact',
+            'latestWorks'     => 'Dernières œuvres',
+            'featuredTracks'  => 'Titres en vedette',
             'creativePrompts' => 'Prompts créatifs',
-            'logout' => 'Déconnexion',
-            'copied' => 'Copié!',
-            'promptCopied' => 'Prompt copié dans le presse-papiers',
+            'copied'          => 'Copié!',
+            'promptCopied'    => 'Prompt copié dans le presse-papiers',
         ),
         'PL' => array(
-            'enter' => 'Wejdź',
-            'welcome' => 'Witamy w doświadczeniu',
-            'aboutMe' => 'O mnie',
-            'videoGallery' => 'Galeria wideo',
-            'music' => 'Muzyka',
-            'prompt' => 'Prompt',
-            'biography' => 'Biografia',
-            'biographyText' => 'Kreatywny profesjonalista z pasją do produkcji wideo, muzyki i sztuki cyfrowej. Z wieloletnim doświadczeniem w tworzeniu wizualnych i dźwiękowych doświadczeń, wnoszę unikalne perspektywy do każdego projektu.',
-            'skills' => 'Umiejętności',
-            'contact' => 'Kontakt',
-            'latestWorks' => 'Najnowsze prace',
-            'featuredTracks' => 'Polecane utwory',
+            'enter'           => 'Wejdź',
+            'welcome'         => 'Witamy',
+            'aboutMe'         => 'O mnie',
+            'videoGallery'    => 'Galeria wideo',
+            'music'           => 'Muzyka',
+            'prompt'          => 'Prompt',
+            'biography'       => 'Biografia',
+            'biographyText'   => 'Kreatywny profesjonalista z pasją do produkcji wideo, muzyki i sztuki cyfrowej.',
+            'skills'          => 'Umiejętności',
+            'contact'         => 'Kontakt',
+            'latestWorks'     => 'Najnowsze prace',
+            'featuredTracks'  => 'Polecane utwory',
             'creativePrompts' => 'Kreatywne prompty',
-            'logout' => 'Wyloguj',
-            'copied' => 'Skopiowano!',
-            'promptCopied' => 'Prompt skopiowany do schowka',
+            'copied'          => 'Skopiowano!',
+            'promptCopied'    => 'Prompt skopiowany do schowka',
         ),
     );
 }
 
 /**
- * Get current language (default: CZ)
+ * Get current language
  */
 function jaganos_get_current_language() {
-    // Check for WPML
     if ( defined( 'ICL_LANGUAGE_CODE' ) ) {
         return strtoupper( ICL_LANGUAGE_CODE );
     }
-    
-    // Check for Polylang
     if ( function_exists( 'pll_current_language' ) ) {
         return strtoupper( pll_current_language() );
     }
-    
-    // Check session/cookie
     if ( isset( $_COOKIE['jaganos_lang'] ) ) {
         return sanitize_text_field( $_COOKIE['jaganos_lang'] );
     }
-    
-    // Default to Czech
     return 'CZ';
 }
 
@@ -258,332 +204,126 @@ function jaganos_get_current_language() {
  * Register Custom Post Types
  */
 function jaganos_register_post_types() {
-    // Videos Post Type
+    // Videos
     register_post_type( 'jaganos_video', array(
         'labels' => array(
-            'name'               => esc_html__( 'Videos', 'jaganos-ai' ),
-            'singular_name'      => esc_html__( 'Video', 'jaganos-ai' ),
-            'add_new'            => esc_html__( 'Add New Video', 'jaganos-ai' ),
-            'add_new_item'       => esc_html__( 'Add New Video', 'jaganos-ai' ),
-            'edit_item'          => esc_html__( 'Edit Video', 'jaganos-ai' ),
-            'view_item'          => esc_html__( 'View Video', 'jaganos-ai' ),
-            'all_items'          => esc_html__( 'All Videos', 'jaganos-ai' ),
-            'search_items'       => esc_html__( 'Search Videos', 'jaganos-ai' ),
+            'name'          => __( 'Videos', 'jaganos-ai' ),
+            'singular_name' => __( 'Video', 'jaganos-ai' ),
+            'add_new'       => __( 'Add New Video', 'jaganos-ai' ),
+            'add_new_item'  => __( 'Add New Video', 'jaganos-ai' ),
+            'edit_item'     => __( 'Edit Video', 'jaganos-ai' ),
+            'all_items'     => __( 'All Videos', 'jaganos-ai' ),
         ),
-        'public'        => true,
-        'has_archive'   => true,
-        'menu_icon'     => 'dashicons-video-alt3',
-        'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt' ),
-        'rewrite'       => array( 'slug' => 'videos' ),
-        'show_in_rest'  => true,
+        'public'       => true,
+        'has_archive'  => true,
+        'menu_icon'    => 'dashicons-video-alt3',
+        'supports'     => array( 'title', 'editor', 'thumbnail', 'excerpt', 'custom-fields' ),
+        'rewrite'      => array( 'slug' => 'videos' ),
+        'show_in_rest' => true,
     ) );
 
-    // Music Post Type
+    // Music
     register_post_type( 'jaganos_music', array(
         'labels' => array(
-            'name'               => esc_html__( 'Music', 'jaganos-ai' ),
-            'singular_name'      => esc_html__( 'Track', 'jaganos-ai' ),
-            'add_new'            => esc_html__( 'Add New Track', 'jaganos-ai' ),
-            'add_new_item'       => esc_html__( 'Add New Track', 'jaganos-ai' ),
-            'edit_item'          => esc_html__( 'Edit Track', 'jaganos-ai' ),
-            'view_item'          => esc_html__( 'View Track', 'jaganos-ai' ),
-            'all_items'          => esc_html__( 'All Tracks', 'jaganos-ai' ),
-            'search_items'       => esc_html__( 'Search Tracks', 'jaganos-ai' ),
+            'name'          => __( 'Music', 'jaganos-ai' ),
+            'singular_name' => __( 'Track', 'jaganos-ai' ),
+            'add_new'       => __( 'Add New Track', 'jaganos-ai' ),
+            'add_new_item'  => __( 'Add New Track', 'jaganos-ai' ),
+            'edit_item'     => __( 'Edit Track', 'jaganos-ai' ),
+            'all_items'     => __( 'All Tracks', 'jaganos-ai' ),
         ),
-        'public'        => true,
-        'has_archive'   => true,
-        'menu_icon'     => 'dashicons-format-audio',
-        'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt' ),
-        'rewrite'       => array( 'slug' => 'music' ),
-        'show_in_rest'  => true,
+        'public'       => true,
+        'has_archive'  => true,
+        'menu_icon'    => 'dashicons-format-audio',
+        'supports'     => array( 'title', 'editor', 'thumbnail', 'excerpt', 'custom-fields' ),
+        'rewrite'      => array( 'slug' => 'music' ),
+        'show_in_rest' => true,
     ) );
 
-    // Prompts Post Type
+    // Prompts
     register_post_type( 'jaganos_prompt', array(
         'labels' => array(
-            'name'               => esc_html__( 'Prompts', 'jaganos-ai' ),
-            'singular_name'      => esc_html__( 'Prompt', 'jaganos-ai' ),
-            'add_new'            => esc_html__( 'Add New Prompt', 'jaganos-ai' ),
-            'add_new_item'       => esc_html__( 'Add New Prompt', 'jaganos-ai' ),
-            'edit_item'          => esc_html__( 'Edit Prompt', 'jaganos-ai' ),
-            'view_item'          => esc_html__( 'View Prompt', 'jaganos-ai' ),
-            'all_items'          => esc_html__( 'All Prompts', 'jaganos-ai' ),
-            'search_items'       => esc_html__( 'Search Prompts', 'jaganos-ai' ),
+            'name'          => __( 'Prompts', 'jaganos-ai' ),
+            'singular_name' => __( 'Prompt', 'jaganos-ai' ),
+            'add_new'       => __( 'Add New Prompt', 'jaganos-ai' ),
+            'add_new_item'  => __( 'Add New Prompt', 'jaganos-ai' ),
+            'edit_item'     => __( 'Edit Prompt', 'jaganos-ai' ),
+            'all_items'     => __( 'All Prompts', 'jaganos-ai' ),
         ),
-        'public'        => true,
-        'has_archive'   => true,
-        'menu_icon'     => 'dashicons-lightbulb',
-        'supports'      => array( 'title', 'editor', 'thumbnail' ),
-        'rewrite'       => array( 'slug' => 'prompts' ),
-        'show_in_rest'  => true,
+        'public'       => true,
+        'has_archive'  => true,
+        'menu_icon'    => 'dashicons-lightbulb',
+        'supports'     => array( 'title', 'editor', 'thumbnail', 'custom-fields' ),
+        'rewrite'      => array( 'slug' => 'prompts' ),
+        'show_in_rest' => true,
     ) );
 }
 add_action( 'init', 'jaganos_register_post_types' );
 
 /**
- * Register Custom Taxonomies
+ * Register custom meta fields for block editor
  */
-function jaganos_register_taxonomies() {
-    // Prompt Categories
-    register_taxonomy( 'prompt_category', 'jaganos_prompt', array(
-        'labels' => array(
-            'name'          => esc_html__( 'Prompt Categories', 'jaganos-ai' ),
-            'singular_name' => esc_html__( 'Category', 'jaganos-ai' ),
-        ),
-        'hierarchical'  => true,
-        'public'        => true,
-        'rewrite'       => array( 'slug' => 'prompt-category' ),
-        'show_in_rest'  => true,
-    ) );
-}
-add_action( 'init', 'jaganos_register_taxonomies' );
-
-/**
- * Add Meta Boxes
- */
-function jaganos_add_meta_boxes() {
-    // Video URL meta box
-    add_meta_box(
-        'jaganos_video_details',
-        esc_html__( 'Video Details', 'jaganos-ai' ),
-        'jaganos_video_meta_callback',
-        'jaganos_video',
-        'normal',
-        'high'
-    );
-
-    // Music meta box
-    add_meta_box(
-        'jaganos_music_details',
-        esc_html__( 'Track Details', 'jaganos-ai' ),
-        'jaganos_music_meta_callback',
-        'jaganos_music',
-        'normal',
-        'high'
-    );
-
-    // Prompt meta box
-    add_meta_box(
-        'jaganos_prompt_details',
-        esc_html__( 'Prompt Details', 'jaganos-ai' ),
-        'jaganos_prompt_meta_callback',
-        'jaganos_prompt',
-        'normal',
-        'high'
-    );
-}
-add_action( 'add_meta_boxes', 'jaganos_add_meta_boxes' );
-
-/**
- * Video Meta Box Callback
- */
-function jaganos_video_meta_callback( $post ) {
-    wp_nonce_field( 'jaganos_video_meta', 'jaganos_video_meta_nonce' );
-    
-    $video_url = get_post_meta( $post->ID, '_jaganos_video_url', true );
-    $video_duration = get_post_meta( $post->ID, '_jaganos_video_duration', true );
-    ?>
-    <p>
-        <label for="jaganos_video_url"><strong><?php esc_html_e( 'Video URL (YouTube, Vimeo, or direct)', 'jaganos-ai' ); ?></strong></label><br>
-        <input type="url" id="jaganos_video_url" name="jaganos_video_url" value="<?php echo esc_attr( $video_url ); ?>" style="width: 100%;" />
-    </p>
-    <p>
-        <label for="jaganos_video_duration"><strong><?php esc_html_e( 'Duration (e.g., 3:45)', 'jaganos-ai' ); ?></strong></label><br>
-        <input type="text" id="jaganos_video_duration" name="jaganos_video_duration" value="<?php echo esc_attr( $video_duration ); ?>" placeholder="0:00" />
-    </p>
-    <?php
-}
-
-/**
- * Music Meta Box Callback
- */
-function jaganos_music_meta_callback( $post ) {
-    wp_nonce_field( 'jaganos_music_meta', 'jaganos_music_meta_nonce' );
-    
-    $audio_url = get_post_meta( $post->ID, '_jaganos_audio_url', true );
-    $artist = get_post_meta( $post->ID, '_jaganos_artist', true );
-    $duration = get_post_meta( $post->ID, '_jaganos_duration', true );
-    ?>
-    <p>
-        <label for="jaganos_audio_url"><strong><?php esc_html_e( 'Audio File URL or Upload', 'jaganos-ai' ); ?></strong></label><br>
-        <input type="url" id="jaganos_audio_url" name="jaganos_audio_url" value="<?php echo esc_attr( $audio_url ); ?>" style="width: 80%;" />
-        <button type="button" class="button jaganos-upload-audio"><?php esc_html_e( 'Upload', 'jaganos-ai' ); ?></button>
-    </p>
-    <p>
-        <label for="jaganos_artist"><strong><?php esc_html_e( 'Artist Name', 'jaganos-ai' ); ?></strong></label><br>
-        <input type="text" id="jaganos_artist" name="jaganos_artist" value="<?php echo esc_attr( $artist ); ?>" placeholder="Jaganos AI" />
-    </p>
-    <p>
-        <label for="jaganos_duration"><strong><?php esc_html_e( 'Duration (e.g., 3:45)', 'jaganos-ai' ); ?></strong></label><br>
-        <input type="text" id="jaganos_duration" name="jaganos_duration" value="<?php echo esc_attr( $duration ); ?>" placeholder="0:00" />
-    </p>
-    <?php
-}
-
-/**
- * Prompt Meta Box Callback
- */
-function jaganos_prompt_meta_callback( $post ) {
-    wp_nonce_field( 'jaganos_prompt_meta', 'jaganos_prompt_meta_nonce' );
-    
-    $category = get_post_meta( $post->ID, '_jaganos_prompt_category', true );
-    ?>
-    <p>
-        <label for="jaganos_prompt_category"><strong><?php esc_html_e( 'Category (e.g., Video, Image, Audio, Photo)', 'jaganos-ai' ); ?></strong></label><br>
-        <select id="jaganos_prompt_category" name="jaganos_prompt_category">
-            <option value="Video" <?php selected( $category, 'Video' ); ?>>Video</option>
-            <option value="Image" <?php selected( $category, 'Image' ); ?>>Image</option>
-            <option value="Audio" <?php selected( $category, 'Audio' ); ?>>Audio</option>
-            <option value="Photo" <?php selected( $category, 'Photo' ); ?>>Photo</option>
-        </select>
-    </p>
-    <p class="description"><?php esc_html_e( 'The prompt content should be added in the main editor above.', 'jaganos-ai' ); ?></p>
-    <?php
-}
-
-/**
- * Save Meta Box Data
- */
-function jaganos_save_meta_boxes( $post_id ) {
+function jaganos_register_meta() {
     // Video meta
-    if ( isset( $_POST['jaganos_video_meta_nonce'] ) && wp_verify_nonce( $_POST['jaganos_video_meta_nonce'], 'jaganos_video_meta' ) ) {
-        if ( isset( $_POST['jaganos_video_url'] ) ) {
-            update_post_meta( $post_id, '_jaganos_video_url', esc_url_raw( $_POST['jaganos_video_url'] ) );
-        }
-        if ( isset( $_POST['jaganos_video_duration'] ) ) {
-            update_post_meta( $post_id, '_jaganos_video_duration', sanitize_text_field( $_POST['jaganos_video_duration'] ) );
-        }
-    }
+    register_post_meta( 'jaganos_video', 'video_url', array(
+        'show_in_rest' => true,
+        'single'       => true,
+        'type'         => 'string',
+    ) );
+    register_post_meta( 'jaganos_video', 'video_duration', array(
+        'show_in_rest' => true,
+        'single'       => true,
+        'type'         => 'string',
+    ) );
 
     // Music meta
-    if ( isset( $_POST['jaganos_music_meta_nonce'] ) && wp_verify_nonce( $_POST['jaganos_music_meta_nonce'], 'jaganos_music_meta' ) ) {
-        if ( isset( $_POST['jaganos_audio_url'] ) ) {
-            update_post_meta( $post_id, '_jaganos_audio_url', esc_url_raw( $_POST['jaganos_audio_url'] ) );
-        }
-        if ( isset( $_POST['jaganos_artist'] ) ) {
-            update_post_meta( $post_id, '_jaganos_artist', sanitize_text_field( $_POST['jaganos_artist'] ) );
-        }
-        if ( isset( $_POST['jaganos_duration'] ) ) {
-            update_post_meta( $post_id, '_jaganos_duration', sanitize_text_field( $_POST['jaganos_duration'] ) );
-        }
-    }
+    register_post_meta( 'jaganos_music', 'audio_url', array(
+        'show_in_rest' => true,
+        'single'       => true,
+        'type'         => 'string',
+    ) );
+    register_post_meta( 'jaganos_music', 'artist_name', array(
+        'show_in_rest' => true,
+        'single'       => true,
+        'type'         => 'string',
+        'default'      => 'Jaganos AI',
+    ) );
+    register_post_meta( 'jaganos_music', 'track_duration', array(
+        'show_in_rest' => true,
+        'single'       => true,
+        'type'         => 'string',
+    ) );
 
     // Prompt meta
-    if ( isset( $_POST['jaganos_prompt_meta_nonce'] ) && wp_verify_nonce( $_POST['jaganos_prompt_meta_nonce'], 'jaganos_prompt_meta' ) ) {
-        if ( isset( $_POST['jaganos_prompt_category'] ) ) {
-            update_post_meta( $post_id, '_jaganos_prompt_category', sanitize_text_field( $_POST['jaganos_prompt_category'] ) );
-        }
-    }
-}
-add_action( 'save_post', 'jaganos_save_meta_boxes' );
-
-/**
- * Register Widget Areas
- */
-function jaganos_widgets_init() {
-    register_sidebar( array(
-        'name'          => esc_html__( 'Sidebar', 'jaganos-ai' ),
-        'id'            => 'sidebar-1',
-        'description'   => esc_html__( 'Add widgets here for blog sidebar.', 'jaganos-ai' ),
-        'before_widget' => '<div id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h4 class="widget-title">',
-        'after_title'   => '</h4>',
-    ) );
-
-    register_sidebar( array(
-        'name'          => esc_html__( 'Footer Widget 1', 'jaganos-ai' ),
-        'id'            => 'footer-1',
-        'description'   => esc_html__( 'First footer widget area', 'jaganos-ai' ),
-        'before_widget' => '<div id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h4 class="widget-title">',
-        'after_title'   => '</h4>',
-    ) );
-
-    register_sidebar( array(
-        'name'          => esc_html__( 'Footer Widget 2', 'jaganos-ai' ),
-        'id'            => 'footer-2',
-        'description'   => esc_html__( 'Second footer widget area', 'jaganos-ai' ),
-        'before_widget' => '<div id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h4 class="widget-title">',
-        'after_title'   => '</h4>',
-    ) );
-
-    register_sidebar( array(
-        'name'          => esc_html__( 'Footer Widget 3', 'jaganos-ai' ),
-        'id'            => 'footer-3',
-        'description'   => esc_html__( 'Third footer widget area', 'jaganos-ai' ),
-        'before_widget' => '<div id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h4 class="widget-title">',
-        'after_title'   => '</h4>',
+    register_post_meta( 'jaganos_prompt', 'prompt_category', array(
+        'show_in_rest' => true,
+        'single'       => true,
+        'type'         => 'string',
+        'default'      => 'Image',
     ) );
 }
-add_action( 'widgets_init', 'jaganos_widgets_init' );
+add_action( 'init', 'jaganos_register_meta' );
 
 /**
- * Include Customizer Settings
+ * Register block patterns
  */
-require_once JAGANOS_DIR . '/inc/customizer.php';
+function jaganos_register_patterns() {
+    register_block_pattern_category( 'jaganos', array(
+        'label' => __( 'Jaganos AI', 'jaganos-ai' ),
+    ) );
+}
+add_action( 'init', 'jaganos_register_patterns' );
 
 /**
- * Custom Template Tags
- */
-if ( ! function_exists( 'jaganos_posted_on' ) ) {
-    function jaganos_posted_on() {
-        $time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time>';
-        
-        $time_string = sprintf(
-            $time_string,
-            esc_attr( get_the_date( DATE_W3C ) ),
-            esc_html( get_the_date() )
-        );
-
-        echo '<span class="posted-on">' . $time_string . '</span>';
-    }
-}
-
-if ( ! function_exists( 'jaganos_posted_by' ) ) {
-    function jaganos_posted_by() {
-        echo '<span class="byline">';
-        echo '<span class="author vcard">';
-        echo '<a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">';
-        echo esc_html( get_the_author() );
-        echo '</a></span></span>';
-    }
-}
-
-/**
- * Get translation for current language
- */
-function jaganos_translate( $key ) {
-    $translations = jaganos_get_translations();
-    $lang = jaganos_get_current_language();
-    
-    if ( isset( $translations[ $lang ][ $key ] ) ) {
-        return $translations[ $lang ][ $key ];
-    }
-    
-    // Fallback to English
-    if ( isset( $translations['EN'][ $key ] ) ) {
-        return $translations['EN'][ $key ];
-    }
-    
-    return $key;
-}
-
-/**
- * AJAX handler for language change
+ * AJAX: Set language cookie
  */
 function jaganos_set_language() {
     check_ajax_referer( 'jaganos_nonce', 'nonce' );
     
-    if ( isset( $_POST['language'] ) ) {
-        $lang = sanitize_text_field( $_POST['language'] );
-        setcookie( 'jaganos_lang', $lang, time() + ( 365 * 24 * 60 * 60 ), COOKIEPATH, COOKIE_DOMAIN );
-        wp_send_json_success( array( 'language' => $lang ) );
+    if ( isset( $_POST['lang'] ) ) {
+        $lang = sanitize_text_field( $_POST['lang'] );
+        setcookie( 'jaganos_lang', $lang, time() + YEAR_IN_SECONDS, '/' );
+        wp_send_json_success( array( 'lang' => $lang ) );
     }
     
     wp_send_json_error();
@@ -592,59 +332,47 @@ add_action( 'wp_ajax_jaganos_set_language', 'jaganos_set_language' );
 add_action( 'wp_ajax_nopriv_jaganos_set_language', 'jaganos_set_language' );
 
 /**
- * Admin scripts for media uploader
+ * Add social links shortcode for use in patterns
  */
-function jaganos_admin_scripts( $hook ) {
-    if ( 'post.php' !== $hook && 'post-new.php' !== $hook ) {
-        return;
-    }
-    
-    wp_enqueue_media();
-    wp_enqueue_script(
-        'jaganos-admin',
-        JAGANOS_URI . '/assets/js/admin.js',
-        array( 'jquery' ),
-        JAGANOS_VERSION,
-        true
-    );
-}
-add_action( 'admin_enqueue_scripts', 'jaganos_admin_scripts' );
+function jaganos_social_links_shortcode( $atts ) {
+    $atts = shortcode_atts( array(
+        'youtube'   => '',
+        'instagram' => '',
+        'facebook'  => '',
+        'tiktok'    => '',
+        'spotify'   => '',
+    ), $atts );
 
-/**
- * Get social links from customizer
- */
-function jaganos_get_social_links() {
-    return array(
-        array(
-            'name'  => 'youtube',
-            'url'   => get_theme_mod( 'jaganos_youtube_url', 'https://www.youtube.com/@martinjakoubek116' ),
-            'label' => 'YouTube',
-        ),
-        array(
-            'name'  => 'instagram',
-            'url'   => get_theme_mod( 'jaganos_instagram_url', 'https://www.instagram.com/jaga_nos?igsh=MW1wcHZ4bnRwaTZxdQ==' ),
-            'label' => 'Instagram',
-        ),
-        array(
-            'name'  => 'facebook',
-            'url'   => get_theme_mod( 'jaganos_facebook_url', 'https://www.facebook.com/profile.php?id=61582613908107' ),
-            'label' => 'Facebook',
-        ),
-    );
+    ob_start();
+    ?>
+    <div class="jaganos-social-bar glass-effect" style="position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 50; display: flex; gap: 2rem; padding: 1rem 2rem;">
+        <?php if ( $atts['youtube'] ) : ?>
+            <a href="<?php echo esc_url( $atts['youtube'] ); ?>" target="_blank" rel="noopener" class="social-youtube" style="color: hsl(0 0% 55%); transition: color 0.3s;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+        <?php endif; ?>
+        <?php if ( $atts['instagram'] ) : ?>
+            <a href="<?php echo esc_url( $atts['instagram'] ); ?>" target="_blank" rel="noopener" class="social-instagram" style="color: hsl(0 0% 55%); transition: color 0.3s;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+        <?php endif; ?>
+        <?php if ( $atts['facebook'] ) : ?>
+            <a href="<?php echo esc_url( $atts['facebook'] ); ?>" target="_blank" rel="noopener" class="social-facebook" style="color: hsl(0 0% 55%); transition: color 0.3s;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+        <?php endif; ?>
+        <?php if ( $atts['tiktok'] ) : ?>
+            <a href="<?php echo esc_url( $atts['tiktok'] ); ?>" target="_blank" rel="noopener" class="social-tiktok" style="color: hsl(0 0% 55%); transition: color 0.3s;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+            </a>
+        <?php endif; ?>
+        <?php if ( $atts['spotify'] ) : ?>
+            <a href="<?php echo esc_url( $atts['spotify'] ); ?>" target="_blank" rel="noopener" class="social-spotify" style="color: hsl(0 0% 55%); transition: color 0.3s;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+            </a>
+        <?php endif; ?>
+    </div>
+    <?php
+    return ob_get_clean();
 }
-
-/**
- * Custom excerpt length
- */
-function jaganos_excerpt_length( $length ) {
-    return 20;
-}
-add_filter( 'excerpt_length', 'jaganos_excerpt_length' );
-
-/**
- * Custom excerpt more
- */
-function jaganos_excerpt_more( $more ) {
-    return '...';
-}
-add_filter( 'excerpt_more', 'jaganos_excerpt_more' );
+add_shortcode( 'jaganos_social', 'jaganos_social_links_shortcode' );

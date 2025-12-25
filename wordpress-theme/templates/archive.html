@@ -1,0 +1,43 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","style":{"spacing":{"padding":{"top":"8rem","bottom":"4rem"}}},"layout":{"type":"constrained"}} -->
+<main class="wp-block-group" style="padding-top:8rem;padding-bottom:4rem">
+    
+    <!-- wp:query-title {"type":"archive","textAlign":"center","className":"aluminum-text"} /-->
+    
+    <!-- wp:term-description {"textAlign":"center","style":{"color":{"text":"var:preset|color|muted-foreground"}}} /-->
+    
+    <!-- wp:query {"queryId":1,"query":{"perPage":12,"inherit":true}} -->
+    <div class="wp-block-query">
+        
+        <!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
+        
+        <!-- wp:group {"className":"card-hover","style":{"border":{"radius":"0.5rem"},"spacing":{"padding":{"top":"0","right":"0","bottom":"0","left":"0"}}},"backgroundColor":"card"} -->
+        <div class="wp-block-group card-hover has-card-background-color has-background" style="border-radius:0.5rem;padding:0">
+            <!-- wp:post-featured-image {"isLink":true,"aspectRatio":"16/9","style":{"border":{"radius":"0.5rem 0.5rem 0 0"}}} /-->
+            <!-- wp:group {"style":{"spacing":{"padding":{"top":"1rem","right":"1rem","bottom":"1rem","left":"1rem"}}}} -->
+            <div class="wp-block-group" style="padding:1rem">
+                <!-- wp:post-title {"isLink":true,"style":{"typography":{"fontSize":"1rem"}}} /-->
+                <!-- wp:post-excerpt {"excerptLength":20,"style":{"typography":{"fontSize":"0.875rem"},"color":{"text":"var:preset|color|muted-foreground"}}} /-->
+            </div>
+            <!-- /wp:group -->
+        </div>
+        <!-- /wp:group -->
+        
+        <!-- /wp:post-template -->
+        
+        <!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"margin":{"top":"3rem"}}}} -->
+        <!-- wp:query-pagination-previous /-->
+        <!-- wp:query-pagination-numbers /-->
+        <!-- wp:query-pagination-next /-->
+        <!-- /wp:query-pagination -->
+        
+    </div>
+    <!-- /wp:query -->
+    
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"social-links"} /-->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
