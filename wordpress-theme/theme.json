@@ -1,0 +1,310 @@
+{
+    "$schema": "https://schemas.wp.org/wp/6.4/theme.json",
+    "version": 2,
+    "settings": {
+        "appearanceTools": true,
+        "layout": {
+            "contentSize": "800px",
+            "wideSize": "1200px"
+        },
+        "color": {
+            "palette": [
+                {
+                    "slug": "background",
+                    "color": "hsl(0 0% 3%)",
+                    "name": "Background"
+                },
+                {
+                    "slug": "foreground",
+                    "color": "hsl(0 0% 95%)",
+                    "name": "Foreground"
+                },
+                {
+                    "slug": "primary",
+                    "color": "hsl(0 0% 75%)",
+                    "name": "Primary"
+                },
+                {
+                    "slug": "secondary",
+                    "color": "hsl(0 0% 12%)",
+                    "name": "Secondary"
+                },
+                {
+                    "slug": "muted",
+                    "color": "hsl(0 0% 15%)",
+                    "name": "Muted"
+                },
+                {
+                    "slug": "muted-foreground",
+                    "color": "hsl(0 0% 55%)",
+                    "name": "Muted Foreground"
+                },
+                {
+                    "slug": "card",
+                    "color": "hsl(0 0% 6%)",
+                    "name": "Card"
+                },
+                {
+                    "slug": "border",
+                    "color": "hsl(0 0% 18%)",
+                    "name": "Border"
+                },
+                {
+                    "slug": "aluminum",
+                    "color": "hsl(220 10% 70%)",
+                    "name": "Aluminum"
+                },
+                {
+                    "slug": "aluminum-light",
+                    "color": "hsl(220 15% 85%)",
+                    "name": "Aluminum Light"
+                },
+                {
+                    "slug": "aluminum-dark",
+                    "color": "hsl(220 5% 45%)",
+                    "name": "Aluminum Dark"
+                }
+            ],
+            "gradients": [
+                {
+                    "slug": "aluminum-gradient",
+                    "gradient": "linear-gradient(135deg, hsl(220 15% 85%) 0%, hsl(220 10% 70%) 50%, hsl(220 5% 45%) 100%)",
+                    "name": "Aluminum"
+                },
+                {
+                    "slug": "dark-gradient",
+                    "gradient": "linear-gradient(180deg, hsl(0 0% 8%) 0%, hsl(0 0% 3%) 100%)",
+                    "name": "Dark"
+                },
+                {
+                    "slug": "card-gradient",
+                    "gradient": "linear-gradient(145deg, hsl(0 0% 10%) 0%, hsl(0 0% 6%) 100%)",
+                    "name": "Card"
+                }
+            ]
+        },
+        "typography": {
+            "fontFamilies": [
+                {
+                    "fontFamily": "'Playfair Display', Georgia, serif",
+                    "slug": "display",
+                    "name": "Display",
+                    "fontFace": [
+                        {
+                            "fontFamily": "Playfair Display",
+                            "fontWeight": "400 700",
+                            "fontStyle": "normal",
+                            "src": ["https://fonts.gstatic.com/s/playfairdisplay/v36/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKeiunDXbtY.woff2"]
+                        }
+                    ]
+                },
+                {
+                    "fontFamily": "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
+                    "slug": "body",
+                    "name": "Body",
+                    "fontFace": [
+                        {
+                            "fontFamily": "Inter",
+                            "fontWeight": "300 700",
+                            "fontStyle": "normal",
+                            "src": ["https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff2"]
+                        }
+                    ]
+                }
+            ],
+            "fontSizes": [
+                {
+                    "slug": "small",
+                    "size": "0.75rem",
+                    "name": "Small"
+                },
+                {
+                    "slug": "medium",
+                    "size": "1rem",
+                    "name": "Medium"
+                },
+                {
+                    "slug": "large",
+                    "size": "1.5rem",
+                    "name": "Large"
+                },
+                {
+                    "slug": "x-large",
+                    "size": "2rem",
+                    "name": "Extra Large"
+                },
+                {
+                    "slug": "xx-large",
+                    "size": "3rem",
+                    "name": "Huge"
+                }
+            ]
+        },
+        "spacing": {
+            "units": ["px", "em", "rem", "%", "vw", "vh"],
+            "spacingScale": {
+                "steps": 0
+            },
+            "spacingSizes": [
+                {
+                    "slug": "10",
+                    "size": "0.5rem",
+                    "name": "XS"
+                },
+                {
+                    "slug": "20",
+                    "size": "1rem",
+                    "name": "S"
+                },
+                {
+                    "slug": "30",
+                    "size": "2rem",
+                    "name": "M"
+                },
+                {
+                    "slug": "40",
+                    "size": "4rem",
+                    "name": "L"
+                },
+                {
+                    "slug": "50",
+                    "size": "8rem",
+                    "name": "XL"
+                }
+            ]
+        },
+        "custom": {
+            "spacing": {
+                "outer": "2rem"
+            },
+            "shadows": {
+                "aluminum": "0 4px 30px hsl(0 0% 0% / 0.5), inset 0 1px 0 hsl(0 0% 100% / 0.1)",
+                "glow": "0 0 60px hsl(220 10% 70% / 0.15)",
+                "deep": "0 20px 60px hsl(0 0% 0% / 0.8)"
+            }
+        },
+        "blocks": {
+            "core/button": {
+                "border": {
+                    "radius": true
+                }
+            }
+        }
+    },
+    "styles": {
+        "color": {
+            "background": "var(--wp--preset--color--background)",
+            "text": "var(--wp--preset--color--foreground)"
+        },
+        "typography": {
+            "fontFamily": "var(--wp--preset--font-family--body)",
+            "fontSize": "var(--wp--preset--font-size--medium)",
+            "lineHeight": "1.6"
+        },
+        "spacing": {
+            "blockGap": "1.5rem"
+        },
+        "elements": {
+            "heading": {
+                "typography": {
+                    "fontFamily": "var(--wp--preset--font-family--display)",
+                    "fontWeight": "600",
+                    "lineHeight": "1.2"
+                },
+                "color": {
+                    "text": "var(--wp--preset--color--foreground)"
+                }
+            },
+            "h1": {
+                "typography": {
+                    "fontSize": "clamp(2.5rem, 5vw, 4rem)"
+                }
+            },
+            "h2": {
+                "typography": {
+                    "fontSize": "clamp(2rem, 4vw, 3rem)"
+                }
+            },
+            "h3": {
+                "typography": {
+                    "fontSize": "clamp(1.5rem, 3vw, 2rem)"
+                }
+            },
+            "link": {
+                "color": {
+                    "text": "var(--wp--preset--color--primary)"
+                },
+                ":hover": {
+                    "color": {
+                        "text": "var(--wp--preset--color--aluminum-light)"
+                    }
+                }
+            },
+            "button": {
+                "border": {
+                    "radius": "0.5rem"
+                },
+                "color": {
+                    "background": "var(--wp--preset--color--primary)",
+                    "text": "var(--wp--preset--color--background)"
+                },
+                "typography": {
+                    "fontWeight": "600",
+                    "textTransform": "uppercase",
+                    "letterSpacing": "0.1em"
+                }
+            }
+        },
+        "blocks": {
+            "core/site-title": {
+                "typography": {
+                    "fontFamily": "var(--wp--preset--font-family--display)",
+                    "fontSize": "1.25rem",
+                    "fontWeight": "700",
+                    "letterSpacing": "0.1em"
+                }
+            },
+            "core/navigation": {
+                "typography": {
+                    "fontSize": "var(--wp--preset--font-size--small)",
+                    "textTransform": "uppercase",
+                    "letterSpacing": "0.1em"
+                }
+            },
+            "core/paragraph": {
+                "color": {
+                    "text": "var(--wp--preset--color--muted-foreground)"
+                }
+            }
+        }
+    },
+    "templateParts": [
+        {
+            "name": "header",
+            "title": "Header",
+            "area": "header"
+        },
+        {
+            "name": "footer",
+            "title": "Footer",
+            "area": "footer"
+        },
+        {
+            "name": "social-links",
+            "title": "Social Links Bar",
+            "area": "uncategorized"
+        }
+    ],
+    "customTemplates": [
+        {
+            "name": "welcome",
+            "title": "Welcome Page",
+            "postTypes": ["page"]
+        },
+        {
+            "name": "blank",
+            "title": "Blank",
+            "postTypes": ["page", "post"]
+        }
+    ]
+}

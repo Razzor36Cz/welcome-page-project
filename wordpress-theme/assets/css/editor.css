@@ -1,0 +1,55 @@
+/**
+ * Jaganos AI Block Theme - Editor Styles
+ * @version 2.0.0
+ */
+
+/* Match frontend styling in editor */
+.editor-styles-wrapper {
+    background-color: hsl(0 0% 3%);
+    color: hsl(0 0% 95%);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3,
+.editor-styles-wrapper h4,
+.editor-styles-wrapper h5,
+.editor-styles-wrapper h6 {
+    font-family: 'Playfair Display', Georgia, serif;
+    color: hsl(0 0% 95%);
+}
+
+.editor-styles-wrapper .aluminum-text {
+    background: linear-gradient(135deg, hsl(220 15% 85%) 0%, hsl(220 10% 70%) 50%, hsl(220 5% 45%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.editor-styles-wrapper p {
+    color: hsl(0 0% 55%);
+}
+
+.editor-styles-wrapper a {
+    color: hsl(0 0% 75%);
+}
+
+/* Card styling in editor */
+.editor-styles-wrapper .card-hover {
+    background: linear-gradient(145deg, hsl(0 0% 10%) 0%, hsl(0 0% 6%) 100%);
+    border: 1px solid hsl(220 10% 70% / 0.15);
+    border-radius: 0.5rem;
+}
+
+/* Button styling */
+.editor-styles-wrapper .btn-outline .wp-block-button__link {
+    background: transparent;
+    border: 1px solid hsl(220 10% 70% / 0.3);
+    color: hsl(0 0% 95%);
+}
+
+.editor-styles-wrapper .btn-primary .wp-block-button__link {
+    background: linear-gradient(135deg, hsl(220 15% 85%) 0%, hsl(220 10% 70%) 50%, hsl(220 5% 45%) 100%);
+    color: hsl(0 0% 3%);
+}

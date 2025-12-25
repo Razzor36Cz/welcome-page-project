@@ -1,0 +1,164 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","style":{"spacing":{"padding":{"top":"8rem","bottom":"4rem"}}},"layout":{"type":"constrained"}} -->
+<main class="wp-block-group" style="padding-top:8rem;padding-bottom:4rem">
+    
+    <!-- Hero Section -->
+    <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"8rem","bottom":"8rem"}}},"backgroundColor":"background","layout":{"type":"constrained"}} -->
+    <div class="wp-block-group alignfull has-background-background-color has-background" style="padding-top:8rem;padding-bottom:8rem">
+        
+        <!-- wp:heading {"textAlign":"center","level":1,"className":"aluminum-text","style":{"typography":{"fontSize":"clamp(2.5rem, 6vw, 5rem)","letterSpacing":"0.05em"}}} -->
+        <h1 class="wp-block-heading has-text-align-center aluminum-text" style="font-size:clamp(2.5rem, 6vw, 5rem);letter-spacing:0.05em">JAGANOS AI</h1>
+        <!-- /wp:heading -->
+        
+        <!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"1.25rem"},"color":{"text":"var:preset|color|muted-foreground"}}} -->
+        <p class="has-text-align-center" style="color:var(--wp--preset--color--muted-foreground);font-size:1.25rem">Video · Music · AI Prompts</p>
+        <!-- /wp:paragraph -->
+        
+        <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"margin":{"top":"3rem"}}}} -->
+        <div class="wp-block-buttons" style="margin-top:3rem">
+            <!-- wp:button {"className":"btn-outline"} -->
+            <div class="wp-block-button btn-outline"><a class="wp-block-button__link wp-element-button" href="#about">Explore</a></div>
+            <!-- /wp:button -->
+        </div>
+        <!-- /wp:buttons -->
+        
+    </div>
+    <!-- /wp:group -->
+    
+    <!-- About Section -->
+    <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"6rem","bottom":"6rem"}}},"backgroundColor":"card","layout":{"type":"constrained"}} -->
+    <div id="about" class="wp-block-group alignfull has-card-background-color has-background" style="padding-top:6rem;padding-bottom:6rem">
+        
+        <!-- wp:heading {"textAlign":"center","level":2,"className":"aluminum-text"} -->
+        <h2 class="wp-block-heading has-text-align-center aluminum-text">About Me</h2>
+        <!-- /wp:heading -->
+        
+        <!-- wp:paragraph {"align":"center","style":{"color":{"text":"var:preset|color|muted-foreground"}}} -->
+        <p class="has-text-align-center" style="color:var(--wp--preset--color--muted-foreground)">A creative professional passionate about video production, music, and digital art. With years of experience in crafting visual and audio experiences, I bring unique perspectives to every project.</p>
+        <!-- /wp:paragraph -->
+        
+    </div>
+    <!-- /wp:group -->
+    
+    <!-- Videos Section -->
+    <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"6rem","bottom":"6rem"}}},"layout":{"type":"constrained"}} -->
+    <div id="videos" class="wp-block-group alignfull" style="padding-top:6rem;padding-bottom:6rem">
+        
+        <!-- wp:heading {"textAlign":"center","level":2,"className":"aluminum-text"} -->
+        <h2 class="wp-block-heading has-text-align-center aluminum-text">Video Gallery</h2>
+        <!-- /wp:heading -->
+        
+        <!-- wp:query {"queryId":2,"query":{"perPage":6,"postType":"jaganos_video","order":"desc","orderBy":"date"}} -->
+        <div class="wp-block-query">
+            <!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
+            
+            <!-- wp:group {"className":"video-card card-hover","style":{"border":{"radius":"0.5rem"},"spacing":{"padding":{"top":"0","right":"0","bottom":"0","left":"0"}}},"backgroundColor":"card"} -->
+            <div class="wp-block-group video-card card-hover has-card-background-color has-background" style="border-radius:0.5rem;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0">
+                <!-- wp:post-featured-image {"isLink":true,"aspectRatio":"16/9","style":{"border":{"radius":"0.5rem 0.5rem 0 0"}}} /-->
+                <!-- wp:group {"style":{"spacing":{"padding":{"top":"1rem","right":"1rem","bottom":"1rem","left":"1rem"}}}} -->
+                <div class="wp-block-group" style="padding:1rem">
+                    <!-- wp:post-title {"isLink":true,"style":{"typography":{"fontSize":"1rem"}}} /-->
+                </div>
+                <!-- /wp:group -->
+            </div>
+            <!-- /wp:group -->
+            
+            <!-- /wp:post-template -->
+            
+            <!-- wp:query-no-results -->
+            <!-- wp:paragraph {"align":"center","style":{"color":{"text":"var:preset|color|muted-foreground"}}} -->
+            <p class="has-text-align-center" style="color:var(--wp--preset--color--muted-foreground)">No videos yet. Add videos in the WordPress admin.</p>
+            <!-- /wp:paragraph -->
+            <!-- /wp:query-no-results -->
+        </div>
+        <!-- /wp:query -->
+        
+    </div>
+    <!-- /wp:group -->
+    
+    <!-- Music Section -->
+    <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"6rem","bottom":"6rem"}}},"backgroundColor":"card","layout":{"type":"constrained"}} -->
+    <div id="music" class="wp-block-group alignfull has-card-background-color has-background" style="padding-top:6rem;padding-bottom:6rem">
+        
+        <!-- wp:heading {"textAlign":"center","level":2,"className":"aluminum-text"} -->
+        <h2 class="wp-block-heading has-text-align-center aluminum-text">Music</h2>
+        <!-- /wp:heading -->
+        
+        <!-- wp:query {"queryId":3,"query":{"perPage":6,"postType":"jaganos_music","order":"desc","orderBy":"date"}} -->
+        <div class="wp-block-query">
+            <!-- wp:post-template {"layout":{"type":"grid","columnCount":2}} -->
+            
+            <!-- wp:group {"className":"music-player card-hover","style":{"border":{"radius":"0.5rem"},"spacing":{"padding":{"top":"1.5rem","right":"1.5rem","bottom":"1.5rem","left":"1.5rem"}}}} -->
+            <div class="wp-block-group music-player card-hover" style="border-radius:0.5rem;padding:1.5rem">
+                <!-- wp:columns {"verticalAlignment":"center"} -->
+                <div class="wp-block-columns are-vertically-aligned-center">
+                    <!-- wp:column {"verticalAlignment":"center","width":"60px"} -->
+                    <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:60px">
+                        <!-- wp:post-featured-image {"width":"60px","height":"60px","style":{"border":{"radius":"0.5rem"}}} /-->
+                    </div>
+                    <!-- /wp:column -->
+                    <!-- wp:column {"verticalAlignment":"center"} -->
+                    <div class="wp-block-column is-vertically-aligned-center">
+                        <!-- wp:post-title {"style":{"typography":{"fontSize":"1rem"}}} /-->
+                        <!-- wp:paragraph {"style":{"typography":{"fontSize":"0.875rem"},"color":{"text":"var:preset|color|muted-foreground"}}} -->
+                        <p style="color:var(--wp--preset--color--muted-foreground);font-size:0.875rem">Jaganos AI</p>
+                        <!-- /wp:paragraph -->
+                    </div>
+                    <!-- /wp:column -->
+                </div>
+                <!-- /wp:columns -->
+            </div>
+            <!-- /wp:group -->
+            
+            <!-- /wp:post-template -->
+            
+            <!-- wp:query-no-results -->
+            <!-- wp:paragraph {"align":"center","style":{"color":{"text":"var:preset|color|muted-foreground"}}} -->
+            <p class="has-text-align-center" style="color:var(--wp--preset--color--muted-foreground)">No tracks yet. Add music in the WordPress admin.</p>
+            <!-- /wp:paragraph -->
+            <!-- /wp:query-no-results -->
+        </div>
+        <!-- /wp:query -->
+        
+    </div>
+    <!-- /wp:group -->
+    
+    <!-- Prompts Section -->
+    <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"6rem","bottom":"6rem"}}},"layout":{"type":"constrained"}} -->
+    <div id="prompts" class="wp-block-group alignfull" style="padding-top:6rem;padding-bottom:6rem">
+        
+        <!-- wp:heading {"textAlign":"center","level":2,"className":"aluminum-text"} -->
+        <h2 class="wp-block-heading has-text-align-center aluminum-text">Creative Prompts</h2>
+        <!-- /wp:heading -->
+        
+        <!-- wp:query {"queryId":4,"query":{"perPage":6,"postType":"jaganos_prompt","order":"desc","orderBy":"date"}} -->
+        <div class="wp-block-query">
+            <!-- wp:post-template {"layout":{"type":"grid","columnCount":2}} -->
+            
+            <!-- wp:group {"className":"card-hover","style":{"border":{"radius":"0.5rem","width":"1px","color":"var:preset|color|border"},"spacing":{"padding":{"top":"1.5rem","right":"1.5rem","bottom":"1.5rem","left":"1.5rem"}}},"backgroundColor":"card"} -->
+            <div class="wp-block-group card-hover has-border-color has-card-background-color has-background" style="border-color:var(--wp--preset--color--border);border-width:1px;border-radius:0.5rem;padding:1.5rem">
+                <!-- wp:post-title {"style":{"typography":{"fontSize":"1rem"}}} /-->
+                <!-- wp:post-content {"style":{"typography":{"fontSize":"0.875rem"},"color":{"text":"var:preset|color|muted-foreground"}}} /-->
+            </div>
+            <!-- /wp:group -->
+            
+            <!-- /wp:post-template -->
+            
+            <!-- wp:query-no-results -->
+            <!-- wp:paragraph {"align":"center","style":{"color":{"text":"var:preset|color|muted-foreground"}}} -->
+            <p class="has-text-align-center" style="color:var(--wp--preset--color--muted-foreground)">No prompts yet. Add prompts in the WordPress admin.</p>
+            <!-- /wp:paragraph -->
+            <!-- /wp:query-no-results -->
+        </div>
+        <!-- /wp:query -->
+        
+    </div>
+    <!-- /wp:group -->
+    
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"social-links"} /-->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
