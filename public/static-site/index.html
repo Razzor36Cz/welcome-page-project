@@ -3,74 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JAGA_NOS | Kreativní Portfolio</title>
-    <meta name="description" content="Luxusní kreativní portfolio prezentující video produkci, hudbu a digitální umění. Zažijte ohromující vizuální příběhy.">
-    <meta name="author" content="JAGA_NOS">
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="JAGA_NOS | Kreativní Portfolio">
-    <meta property="og:description" content="Luxusní kreativní portfolio prezentující video produkci, hudbu a digitální umění.">
-    <meta property="og:type" content="website">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    
-    <!-- Fonts -->
+    <meta name="description" content="JAGANOS AI - Kreativní AI umělec a hudebník">
+    <title>JAGANOS AI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
     <style>
-        :root {
-            --background: 0 0% 3%;
-            --foreground: 60 9% 98%;
-            --card: 0 0% 5%;
-            --card-foreground: 60 9% 98%;
-            --primary: 47 100% 50%;
-            --primary-foreground: 0 0% 0%;
-            --secondary: 0 0% 10%;
-            --secondary-foreground: 60 9% 98%;
-            --muted: 0 0% 15%;
-            --muted-foreground: 0 0% 65%;
-            --accent: 47 100% 50%;
-            --border: 0 0% 15%;
-            --ring: 47 100% 50%;
-        }
-        
-        * {
+        /* CSS Reset & Variables */
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        :root {
+            --background: #0a0a0a;
+            --foreground: #fafafa;
+            --card: #141414;
+            --card-foreground: #fafafa;
+            --primary: #c0c0c0;
+            --primary-foreground: #0a0a0a;
+            --secondary: #1a1a1a;
+            --secondary-foreground: #fafafa;
+            --muted: #262626;
+            --muted-foreground: #a1a1a1;
+            --accent: #1a1a1a;
+            --accent-foreground: #fafafa;
+            --border: #262626;
+            --aluminum-light: #e8e8e8;
+            --aluminum: #c0c0c0;
+            --aluminum-dark: #8a8a8a;
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: hsl(var(--background));
-            color: hsl(var(--foreground));
+            font-family: var(--font-body);
+            background: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
             min-height: 100vh;
-            overflow-x: hidden;
         }
-        
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Playfair Display', serif;
+
+        /* Utility Classes */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
         }
-        
-        a {
-            text-decoration: none;
-            color: inherit;
+
+        .text-center { text-align: center; }
+        .hidden { display: none !important; }
+
+        /* Aluminum Text Effect */
+        .text-aluminum {
+            background: linear-gradient(180deg, var(--aluminum-light) 0%, var(--aluminum) 50%, var(--aluminum-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        
-        /* Welcome Page */
+
+        /* Glass Effect */
+        .glass {
+            background: rgba(20, 20, 20, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(192, 192, 192, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.6s ease-out forwards;
+        }
+
+        /* ==================== */
+        /* WELCOME PAGE */
+        /* ==================== */
         .welcome-page {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            justify-content: flex-end;
             align-items: center;
-            justify-content: center;
             position: relative;
             overflow: hidden;
         }
-        
+
         .welcome-video {
             position: absolute;
             top: 0;
@@ -78,9 +119,9 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.4;
+            z-index: 0;
         }
-        
+
         .welcome-overlay {
             position: absolute;
             top: 0;
@@ -88,950 +129,1020 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(to bottom, 
-                hsla(var(--background), 0.3) 0%,
-                hsla(var(--background), 0.6) 50%,
-                hsla(var(--background), 0.9) 100%
-            );
+                rgba(10, 10, 10, 0.3) 0%, 
+                rgba(10, 10, 10, 0.5) 50%, 
+                rgba(10, 10, 10, 0.9) 100%);
+            z-index: 1;
         }
-        
+
         .welcome-content {
             position: relative;
-            z-index: 10;
+            z-index: 2;
             text-align: center;
-            padding: 2rem;
+            padding-bottom: 4rem;
+            animation: fadeIn 1s ease-out;
         }
-        
-        .welcome-title {
-            font-size: clamp(3rem, 10vw, 8rem);
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            background: linear-gradient(135deg, hsl(var(--primary)), hsl(47, 100%, 70%));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1rem;
-            animation: fadeInUp 1s ease-out;
+
+        .welcome-divider {
+            width: 80px;
+            height: 1px;
+            background: var(--aluminum);
+            margin: 0 auto 2rem;
         }
-        
-        .welcome-subtitle {
-            font-size: 1.25rem;
-            color: hsl(var(--muted-foreground));
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            margin-bottom: 3rem;
-            animation: fadeInUp 1s ease-out 0.3s both;
-        }
-        
+
         .enter-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem 2.5rem;
-            background: linear-gradient(135deg, hsl(var(--primary)), hsl(47, 100%, 60%));
-            color: hsl(var(--primary-foreground));
-            font-size: 1rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
+            display: inline-block;
+            padding: 0.875rem 3rem;
+            background: transparent;
+            border: 1px solid var(--aluminum);
+            color: var(--aluminum);
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-decoration: none;
             text-transform: uppercase;
-            border: none;
-            border-radius: 9999px;
             cursor: pointer;
             transition: all 0.3s ease;
-            animation: fadeInUp 1s ease-out 0.6s both;
         }
-        
+
         .enter-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 40px hsla(var(--primary), 0.5);
+            background: var(--aluminum);
+            color: var(--background);
+            box-shadow: 0 0 30px rgba(192, 192, 192, 0.3);
         }
-        
-        /* Navigation */
-        .navigation {
+
+        /* ==================== */
+        /* NAVIGATION */
+        /* ==================== */
+        .nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 100;
-            padding: 1.5rem 2rem;
+            padding: 1.5rem 0;
+            transition: background 0.3s ease;
+        }
+
+        .nav.scrolled {
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(12px);
+        }
+
+        .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: hsla(var(--background), 0.8);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid hsla(var(--border), 0.5);
         }
-        
-        .logo {
-            font-family: 'Playfair Display', serif;
+
+        .nav-logo {
+            font-family: var(--font-display);
             font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, hsl(var(--primary)), hsl(47, 100%, 70%));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-weight: 600;
+            text-decoration: none;
         }
-        
+
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             list-style: none;
         }
-        
+
         .nav-link {
-            color: hsl(var(--muted-foreground));
+            color: var(--muted-foreground);
+            text-decoration: none;
             font-size: 0.875rem;
-            letter-spacing: 0.1em;
+            font-weight: 500;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
             transition: color 0.3s ease;
             position: relative;
         }
-        
+
         .nav-link:hover,
         .nav-link.active {
-            color: hsl(var(--primary));
+            color: var(--aluminum);
         }
-        
+
         .nav-link::after {
             content: '';
             position: absolute;
             bottom: -4px;
             left: 0;
             width: 0;
-            height: 2px;
-            background: hsl(var(--primary));
+            height: 1px;
+            background: var(--aluminum);
             transition: width 0.3s ease;
         }
-        
+
         .nav-link:hover::after,
         .nav-link.active::after {
             width: 100%;
         }
-        
-        .language-toggle {
+
+        .lang-switch {
             display: flex;
             gap: 0.5rem;
         }
-        
+
         .lang-btn {
-            padding: 0.5rem 1rem;
+            padding: 0.25rem 0.75rem;
             background: transparent;
-            border: 1px solid hsla(var(--border), 0.5);
-            color: hsl(var(--muted-foreground));
+            border: 1px solid var(--border);
+            color: var(--muted-foreground);
             font-size: 0.75rem;
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
-        .lang-btn.active,
-        .lang-btn:hover {
-            background: hsl(var(--primary));
-            color: hsl(var(--primary-foreground));
-            border-color: hsl(var(--primary));
+
+        .lang-btn.active {
+            background: var(--aluminum);
+            color: var(--background);
+            border-color: var(--aluminum);
         }
-        
-        /* Mobile Menu */
+
         .mobile-menu-btn {
             display: none;
+            flex-direction: column;
+            gap: 5px;
             background: none;
             border: none;
-            color: hsl(var(--foreground));
             cursor: pointer;
             padding: 0.5rem;
         }
-        
-        .hamburger {
+
+        .mobile-menu-btn span {
             width: 24px;
             height: 2px;
-            background: currentColor;
-            position: relative;
-        }
-        
-        .hamburger::before,
-        .hamburger::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: currentColor;
-            left: 0;
-        }
-        
-        .hamburger::before { top: -8px; }
-        .hamburger::after { bottom: -8px; }
-        
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .nav-links.active {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: hsla(var(--background), 0.95);
-                backdrop-filter: blur(12px);
-                padding: 2rem;
-                gap: 1.5rem;
-            }
-        }
-        
-        /* Page Layout */
-        .page {
-            min-height: 100vh;
-            padding-top: 100px;
-            padding-bottom: 100px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        
-        .page-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, hsl(var(--primary)), hsl(47, 100%, 70%));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .page-subtitle {
-            text-align: center;
-            color: hsl(var(--muted-foreground));
-            margin-bottom: 4rem;
-            font-size: 1.125rem;
-        }
-        
-        /* Home Page */
-        .home-hero {
-            min-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 2rem;
-        }
-        
-        .hero-title {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-        }
-        
-        .hero-title span {
-            background: linear-gradient(135deg, hsl(var(--primary)), hsl(47, 100%, 70%));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .hero-description {
-            font-size: 1.25rem;
-            color: hsl(var(--muted-foreground));
-            max-width: 600px;
-            margin-bottom: 2rem;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.875rem 2rem;
-            font-size: 0.875rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            border-radius: 9999px;
-            cursor: pointer;
+            background: var(--foreground);
             transition: all 0.3s ease;
         }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, hsl(var(--primary)), hsl(47, 100%, 60%));
-            color: hsl(var(--primary-foreground));
-            border: none;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px hsla(var(--primary), 0.3);
-        }
-        
-        .btn-outline {
-            background: transparent;
-            color: hsl(var(--foreground));
-            border: 1px solid hsla(var(--border), 0.5);
-        }
-        
-        .btn-outline:hover {
-            border-color: hsl(var(--primary));
-            color: hsl(var(--primary));
-        }
-        
-        /* Grid Layouts */
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-            gap: 2rem;
-        }
-        
-        /* Cards */
-        .card {
-            background: hsla(var(--card), 0.8);
-            border: 1px solid hsla(var(--border), 0.5);
-            border-radius: 1rem;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .card:hover {
-            transform: translateY(-8px);
-            border-color: hsla(var(--primary), 0.5);
-            box-shadow: 0 20px 40px hsla(var(--primary), 0.1);
-        }
-        
-        .card-image {
-            width: 100%;
-            aspect-ratio: 16/9;
-            object-fit: cover;
-        }
-        
-        .card-content {
-            padding: 1.5rem;
-        }
-        
-        .card-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        .card-description {
-            color: hsl(var(--muted-foreground));
-            font-size: 0.875rem;
-            line-height: 1.6;
-        }
-        
-        /* Music Player Card */
-        .music-card {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            padding: 1.5rem;
-            background: hsla(var(--card), 0.8);
-            border: 1px solid hsla(var(--border), 0.5);
-            border-radius: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .music-card:hover {
-            border-color: hsla(var(--primary), 0.5);
-        }
-        
-        .music-cover {
-            width: 80px;
-            height: 80px;
-            border-radius: 0.5rem;
-            object-fit: cover;
-            background: hsl(var(--secondary));
-        }
-        
-        .music-info {
-            flex: 1;
-        }
-        
-        .music-title {
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-        
-        .music-artist {
-            color: hsl(var(--muted-foreground));
-            font-size: 0.875rem;
-        }
-        
-        .play-btn {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: hsl(var(--primary));
-            color: hsl(var(--primary-foreground));
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-        
-        .play-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 20px hsla(var(--primary), 0.5);
-        }
-        
-        /* About Page */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-        
-        @media (max-width: 768px) {
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .about-image {
-            width: 100%;
-            aspect-ratio: 1;
-            object-fit: cover;
-            border-radius: 1rem;
-            border: 1px solid hsla(var(--border), 0.5);
-        }
-        
-        .about-text h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, hsl(var(--primary)), hsl(47, 100%, 70%));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .about-text p {
-            color: hsl(var(--muted-foreground));
-            line-height: 1.8;
-            margin-bottom: 1rem;
-        }
-        
-        /* Social Links */
-        .social-links {
+
+        /* ==================== */
+        /* SOCIAL LINKS */
+        /* ==================== */
+        .social-bar {
             position: fixed;
-            bottom: 1.5rem;
+            bottom: 2rem;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 50;
+            z-index: 90;
             display: flex;
-            align-items: center;
-            gap: 2rem;
-            padding: 1rem 2rem;
-            background: hsla(var(--background), 0.2);
-            backdrop-filter: blur(12px);
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
             border-radius: 9999px;
-            border: 1px solid hsla(var(--foreground), 0.1);
-            box-shadow: 0 10px 40px hsla(0, 0%, 0%, 0.3);
         }
-        
+
         .social-link {
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
-        }
-        
-        .social-link:hover {
-            transform: scale(1.2);
-        }
-        
-        .social-link svg {
             width: 40px;
             height: 40px;
-        }
-        
-        .social-link.youtube svg { color: #FF0000; }
-        .social-link.instagram svg { color: #E4405F; }
-        .social-link.facebook svg { color: #1877F2; }
-        
-        .social-link:hover svg {
-            filter: drop-shadow(0 0 10px currentColor);
-        }
-        
-        /* Footer */
-        .footer {
-            background: hsla(var(--card), 0.5);
-            border-top: 1px solid hsla(var(--border), 0.5);
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-        
-        .footer-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, hsl(var(--primary)), hsl(47, 100%, 70%));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1rem;
-        }
-        
-        .footer-text {
-            color: hsl(var(--muted-foreground));
-            font-size: 0.875rem;
-        }
-        
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .fade-in {
-            animation: fadeInUp 0.8s ease-out;
-        }
-        
-        /* Prompt Page */
-        .prompt-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .prompt-card {
-            background: hsla(var(--card), 0.8);
-            border: 1px solid hsla(var(--border), 0.5);
-            border-radius: 1rem;
-            padding: 1.5rem;
+            border-radius: 50%;
+            background: var(--secondary);
+            color: var(--foreground);
+            text-decoration: none;
             transition: all 0.3s ease;
         }
-        
-        .prompt-card:hover {
-            border-color: hsla(var(--primary), 0.5);
+
+        .social-link:hover {
+            transform: translateY(-3px);
         }
-        
-        .prompt-title {
-            font-size: 1rem;
+
+        .social-link.youtube:hover { background: #ff0000; }
+        .social-link.instagram:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .social-link.tiktok:hover { background: #000; box-shadow: -2px 0 #00f2ea, 2px 0 #ff0050; }
+        .social-link.spotify:hover { background: #1db954; }
+        .social-link.soundcloud:hover { background: #ff5500; }
+        .social-link.facebook:hover { background: #1877f2; }
+        .social-link.twitter:hover { background: #000; }
+        .social-link.suno:hover { background: linear-gradient(135deg, #8b5cf6, #ec4899); }
+
+        .social-link svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* ==================== */
+        /* MAIN PAGE SECTIONS */
+        /* ==================== */
+        .page {
+            display: none;
+            padding-top: 80px;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: calc(100vh - 80px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 4rem 1.5rem;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: 1.125rem;
+            color: var(--muted-foreground);
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-divider {
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--aluminum), transparent);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
             font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: hsl(var(--primary));
+            margin-bottom: 1rem;
         }
-        
-        .prompt-text {
-            color: hsl(var(--muted-foreground));
+
+        .section-subtitle {
+            color: var(--muted-foreground);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(192, 192, 192, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-image {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            background: var(--secondary);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            color: var(--muted-foreground);
             font-size: 0.875rem;
-            line-height: 1.6;
         }
-        
-        /* Utility Classes */
-        .text-center { text-align: center; }
-        .mb-4 { margin-bottom: 1rem; }
-        .mb-8 { margin-bottom: 2rem; }
-        .mt-8 { margin-top: 2rem; }
-        
-        /* Responsive */
-        @media (max-width: 640px) {
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        /* ==================== */
+        /* ABOUT PAGE */
+        /* ==================== */
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 2rem;
+            border: 3px solid var(--aluminum);
+            background: var(--secondary);
+        }
+
+        .about-text {
+            color: var(--muted-foreground);
+            font-size: 1.125rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .about-stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* ==================== */
+        /* VIDEOS PAGE */
+        /* ==================== */
+        .video-card {
+            position: relative;
+        }
+
+        .video-card .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(192, 192, 192, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-card:hover .play-icon {
+            opacity: 1;
+        }
+
+        .video-card .play-icon svg {
+            width: 24px;
+            height: 24px;
+            color: var(--background);
+            margin-left: 3px;
+        }
+
+        .video-duration {
+            position: absolute;
+            bottom: 0.75rem;
+            right: 0.75rem;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            border-radius: 0.25rem;
+        }
+
+        /* ==================== */
+        /* MUSIC PAGE */
+        /* ==================== */
+        .music-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .music-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .music-item:hover {
+            border-color: rgba(192, 192, 192, 0.3);
+            background: var(--secondary);
+        }
+
+        .music-cover {
+            width: 60px;
+            height: 60px;
+            border-radius: 0.5rem;
+            object-fit: cover;
+            background: var(--muted);
+        }
+
+        .music-info {
+            flex: 1;
+        }
+
+        .music-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .music-artist {
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+        }
+
+        .music-duration {
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+        }
+
+        .play-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--aluminum);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(192, 192, 192, 0.4);
+        }
+
+        .play-btn svg {
+            width: 20px;
+            height: 20px;
+            color: var(--background);
+        }
+
+        /* ==================== */
+        /* PROMPTS PAGE */
+        /* ==================== */
+        .prompt-card {
+            padding: 2rem;
+        }
+
+        .prompt-category {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--secondary);
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            color: var(--aluminum);
+        }
+
+        .prompt-text {
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .copy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            border-color: var(--aluminum);
+            color: var(--aluminum);
+        }
+
+        .copy-btn.copied {
+            border-color: #22c55e;
+            color: #22c55e;
+        }
+
+        /* ==================== */
+        /* FOOTER */
+        /* ==================== */
+        .footer {
+            padding: 4rem 0 8rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-text {
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+        }
+
+        /* ==================== */
+        /* RESPONSIVE */
+        /* ==================== */
+        @media (max-width: 1024px) {
+            .grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(10, 10, 10, 0.95);
+                padding: 1rem;
+                gap: 0;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-link {
+                padding: 1rem;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
             .grid-2,
             .grid-3 {
                 grid-template-columns: 1fr;
             }
-            
-            .social-links {
-                gap: 1.5rem;
-                padding: 0.75rem 1.5rem;
+
+            .about-stats {
+                flex-direction: column;
+                gap: 2rem;
             }
-            
-            .social-link svg {
-                width: 32px;
-                height: 32px;
+
+            .hero-title {
+                font-size: 2.5rem;
             }
+
+            .social-bar {
+                padding: 0.5rem 1rem;
+            }
+
+            .social-link {
+                width: 36px;
+                height: 36px;
+            }
+        }
+
+        /* Page transitions */
+        .page {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .page.active {
+            opacity: 1;
         }
     </style>
 </head>
 <body>
-    <!-- Welcome Page -->
-    <section id="welcome" class="welcome-page">
+    <!-- ==================== -->
+    <!-- WELCOME PAGE -->
+    <!-- ==================== -->
+    <div id="welcome-page" class="welcome-page">
         <video class="welcome-video" autoplay muted loop playsinline>
             <source src="videos/welcome.mp4" type="video/mp4">
         </video>
         <div class="welcome-overlay"></div>
         <div class="welcome-content">
-            <h1 class="welcome-title">JAGA_NOS</h1>
-            <p class="welcome-subtitle">Video • Hudba • Digitální Umění</p>
-            <a href="#home" class="enter-btn" onclick="showPage('home')">
-                Vstoupit
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-            </a>
+            <div class="welcome-divider"></div>
+            <a href="#" class="enter-btn" onclick="enterSite(); return false;" data-cs="VSTOUPIT" data-en="ENTER">VSTOUPIT</a>
         </div>
-    </section>
-
-    <!-- Navigation -->
-    <nav class="navigation" id="navigation" style="display: none;">
-        <a href="#home" class="logo" onclick="showPage('home')">JAGA_NOS</a>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#home" class="nav-link active" onclick="showPage('home')">Domů</a></li>
-            <li><a href="#about" class="nav-link" onclick="showPage('about')">O mně</a></li>
-            <li><a href="#videos" class="nav-link" onclick="showPage('videos')">Videa</a></li>
-            <li><a href="#music" class="nav-link" onclick="showPage('music')">Hudba</a></li>
-            <li><a href="#prompt" class="nav-link" onclick="showPage('prompt')">Prompt</a></li>
-        </ul>
-        <div class="language-toggle">
-            <button class="lang-btn active" onclick="setLanguage('CZ')">CZ</button>
-            <button class="lang-btn" onclick="setLanguage('EN')">EN</button>
-        </div>
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-            <span class="hamburger"></span>
-        </button>
-    </nav>
-
-    <!-- Home Page -->
-    <section id="home" class="page" style="display: none;">
-        <div class="home-hero">
-            <h1 class="hero-title fade-in">
-                Vytvářím <span>Digitální</span><br>Zážitky
-            </h1>
-            <p class="hero-description fade-in">
-                Vítejte v mém kreativním prostoru. Prozkoumejte mou sbírku videí, hudby a digitálního umění vytvořeného s vášní a inovací.
-            </p>
-            <div class="hero-buttons fade-in">
-                <a href="#videos" class="btn btn-primary" onclick="showPage('videos')">
-                    Sledovat Videa
-                </a>
-                <a href="#music" class="btn btn-outline" onclick="showPage('music')">
-                    Poslouchat Hudbu
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Page -->
-    <section id="about" class="page" style="display: none;">
-        <div class="container">
-            <h1 class="page-title">O mně</h1>
-            <p class="page-subtitle">Poznejte příběh za kreativitou</p>
-            
-            <div class="about-content">
-                <div class="about-image-container">
-                    <div class="about-image" style="background: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--card))); display: flex; align-items: center; justify-content: center; font-size: 4rem;">
-                        🎬
-                    </div>
-                </div>
-                <div class="about-text">
-                    <h2>Ahoj, jsem JAGA_NOS</h2>
-                    <p>
-                        Jsem kreativní tvůrce zaměřený na video produkci, hudbu a digitální umění. 
-                        Moje práce kombinuje moderní technologie s uměleckým vizí k vytváření 
-                        unikátních digitálních zážitků.
-                    </p>
-                    <p>
-                        Věřím v sílu kreativity a neustále hledám nové způsoby, jak spojit 
-                        různá média do harmonického celku. Každý projekt je pro mě příležitostí 
-                        prozkoumat nové možnosti a překonat hranice tradičního umění.
-                    </p>
-                    <a href="#videos" class="btn btn-primary mt-8" onclick="showPage('videos')">
-                        Prozkoumat Práce
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Videos Page -->
-    <section id="videos" class="page" style="display: none;">
-        <div class="container">
-            <h1 class="page-title">Videa</h1>
-            <p class="page-subtitle">Prozkoumejte mou video tvorbu</p>
-            
-            <div class="grid-3">
-                <article class="card">
-                    <div class="card-image" style="background: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--card))); display: flex; align-items: center; justify-content: center; font-size: 3rem;">
-                        🎥
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Kreativní Video 1</h3>
-                        <p class="card-description">Unikátní vizuální příběh kombinující moderní techniky s uměleckým výrazem.</p>
-                    </div>
-                </article>
-                
-                <article class="card">
-                    <div class="card-image" style="background: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--card))); display: flex; align-items: center; justify-content: center; font-size: 3rem;">
-                        🎬
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Kreativní Video 2</h3>
-                        <p class="card-description">Experimentální práce zkoumající hranice digitálního umění.</p>
-                    </div>
-                </article>
-                
-                <article class="card">
-                    <div class="card-image" style="background: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--card))); display: flex; align-items: center; justify-content: center; font-size: 3rem;">
-                        🎞️
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Kreativní Video 3</h3>
-                        <p class="card-description">Vizuální cesta skrze zvuk a obraz.</p>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- Music Page -->
-    <section id="music" class="page" style="display: none;">
-        <div class="container">
-            <h1 class="page-title">Hudba</h1>
-            <p class="page-subtitle">Poslechněte si mou hudební tvorbu</p>
-            
-            <div class="grid-2">
-                <div class="music-card">
-                    <div class="music-cover" style="background: linear-gradient(135deg, hsl(var(--primary)), hsl(47, 100%, 70%)); display: flex; align-items: center; justify-content: center; font-size: 2rem;">
-                        🎵
-                    </div>
-                    <div class="music-info">
-                        <h3 class="music-title">Skladba 1</h3>
-                        <p class="music-artist">JAGA_NOS</p>
-                    </div>
-                    <button class="play-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <polygon points="5 3 19 12 5 21 5 3"/>
-                        </svg>
-                    </button>
-                </div>
-                
-                <div class="music-card">
-                    <div class="music-cover" style="background: linear-gradient(135deg, hsl(var(--primary)), hsl(47, 100%, 70%)); display: flex; align-items: center; justify-content: center; font-size: 2rem;">
-                        🎶
-                    </div>
-                    <div class="music-info">
-                        <h3 class="music-title">Skladba 2</h3>
-                        <p class="music-artist">JAGA_NOS</p>
-                    </div>
-                    <button class="play-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <polygon points="5 3 19 12 5 21 5 3"/>
-                        </svg>
-                    </button>
-                </div>
-                
-                <div class="music-card">
-                    <div class="music-cover" style="background: linear-gradient(135deg, hsl(var(--primary)), hsl(47, 100%, 70%)); display: flex; align-items: center; justify-content: center; font-size: 2rem;">
-                        🎹
-                    </div>
-                    <div class="music-info">
-                        <h3 class="music-title">Skladba 3</h3>
-                        <p class="music-artist">JAGA_NOS</p>
-                    </div>
-                    <button class="play-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <polygon points="5 3 19 12 5 21 5 3"/>
-                        </svg>
-                    </button>
-                </div>
-                
-                <div class="music-card">
-                    <div class="music-cover" style="background: linear-gradient(135deg, hsl(var(--primary)), hsl(47, 100%, 70%)); display: flex; align-items: center; justify-content: center; font-size: 2rem;">
-                        🎧
-                    </div>
-                    <div class="music-info">
-                        <h3 class="music-title">Skladba 4</h3>
-                        <p class="music-artist">JAGA_NOS</p>
-                    </div>
-                    <button class="play-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <polygon points="5 3 19 12 5 21 5 3"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Prompt Page -->
-    <section id="prompt" class="page" style="display: none;">
-        <div class="container">
-            <h1 class="page-title">Prompt</h1>
-            <p class="page-subtitle">Kolekce AI promptů pro kreativní tvorbu</p>
-            
-            <div class="prompt-grid">
-                <div class="prompt-card">
-                    <h3 class="prompt-title">Vizuální Umění</h3>
-                    <p class="prompt-text">Vytvoř surrealistický obraz kombinující prvky přírody s futuristickou architekturou...</p>
-                </div>
-                
-                <div class="prompt-card">
-                    <h3 class="prompt-title">Hudební Inspirace</h3>
-                    <p class="prompt-text">Komponuj ambientní skladbu inspirovanou zvuky noční přírody...</p>
-                </div>
-                
-                <div class="prompt-card">
-                    <h3 class="prompt-title">Video Koncept</h3>
-                    <p class="prompt-text">Navrhni vizuální příběh o cestě světla skrze různá prostředí...</p>
-                </div>
-                
-                <div class="prompt-card">
-                    <h3 class="prompt-title">Digitální Design</h3>
-                    <p class="prompt-text">Vytvoř moderní grafický design spojující minimalism s organickými tvary...</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Social Links -->
-    <div class="social-links" id="socialLinks" style="display: none;">
-        <a href="https://www.youtube.com/@martinjakoubek116" target="_blank" rel="noopener noreferrer" class="social-link youtube" title="YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-            </svg>
-        </a>
-        <a href="https://www.instagram.com/jaga_nos?igsh=MW1wcHZ4bnRwaTZxdQ==" target="_blank" rel="noopener noreferrer" class="social-link instagram" title="Instagram">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-            </svg>
-        </a>
-        <a href="https://www.facebook.com/profile.php?id=61582613908107" target="_blank" rel="noopener noreferrer" class="social-link facebook" title="Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-            </svg>
-        </a>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer" id="footer" style="display: none;">
-        <div class="footer-logo">JAGA_NOS</div>
-        <p class="footer-text">© 2024 JAGA_NOS. Všechna práva vyhrazena.</p>
-    </footer>
+    <!-- ==================== -->
+    <!-- MAIN SITE -->
+    <!-- ==================== -->
+    <div id="main-site" class="hidden">
+        <!-- Navigation -->
+        <nav class="nav glass" id="navbar">
+            <div class="container nav-container">
+                <a href="#" class="nav-logo text-aluminum" onclick="showPage('home'); return false;">JAGANOS AI</a>
+                
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="#" class="nav-link active" data-page="home" data-cs="Domů" data-en="Home">Domů</a></li>
+                    <li><a href="#" class="nav-link" data-page="about" data-cs="O mně" data-en="About">O mně</a></li>
+                    <li><a href="#" class="nav-link" data-page="videos" data-cs="Videa" data-en="Videos">Videa</a></li>
+                    <li><a href="#" class="nav-link" data-page="music" data-cs="Hudba" data-en="Music">Hudba</a></li>
+                    <li><a href="#" class="nav-link" data-page="prompts" data-cs="Prompty" data-en="Prompts">Prompty</a></li>
+                </ul>
+
+                <div class="lang-switch">
+                    <button class="lang-btn active" data-lang="cs">CZ</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Social Bar -->
+        <div class="social-bar glass">
+            <a href="https://youtube.com/@jaganos" class="social-link youtube" target="_blank" title="YouTube">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+            <a href="https://instagram.com/jaganos.ai" class="social-link instagram" target="_blank" title="Instagram">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="https://tiktok.com/@jaganos.ai" class="social-link tiktok" target="_blank" title="TikTok">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+            </a>
+            <a href="https://open.spotify.com/artist/jaganos" class="social-link spotify" target="_blank" title="Spotify">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+            </a>
+            <a href="https://soundcloud.com/jaganos" class="social-link soundcloud" target="_blank" title="SoundCloud">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.175 12.225c-.051 0-.094.046-.101.1l-.233 2.154.233 2.105c.007.058.05.098.101.098.05 0 .09-.04.099-.098l.255-2.105-.27-2.154c-.009-.06-.052-.1-.084-.1zm-.899 1.325c-.053 0-.091.04-.104.104l-.152 1.729.152 1.665c.013.058.051.093.104.093.052 0 .093-.035.104-.093l.178-1.665-.193-1.729c-.009-.064-.052-.104-.089-.104zm1.8-.436c-.061 0-.104.056-.114.111l-.216 2.17.216 2.095c.01.06.053.107.114.107.063 0 .107-.048.116-.107l.244-2.095-.244-2.17c-.009-.055-.053-.111-.116-.111zm.928-.136c-.074 0-.115.064-.123.122l-.191 2.306.191 2.129c.008.064.049.121.123.121.072 0 .115-.057.124-.121l.217-2.129-.217-2.306c-.009-.058-.052-.122-.124-.122zm1.884-2.621c-.084 0-.136.073-.143.137l-.174 4.785.174 2.107c.007.073.059.145.143.145.082 0 .136-.072.143-.145l.198-2.107-.198-4.785c-.007-.064-.061-.137-.143-.137zm.972-.136c-.092 0-.146.08-.153.149l-.159 4.921.159 2.084c.007.08.061.156.153.156.089 0 .145-.076.152-.156l.181-2.084-.181-4.921c-.007-.069-.063-.149-.152-.149zm.979-.154c-.102 0-.155.087-.161.158l-.146 5.075.146 2.064c.006.089.059.166.161.166.1 0 .153-.077.161-.166l.168-2.064-.168-5.075c-.008-.071-.061-.158-.161-.158zm.983-.143c-.111 0-.165.096-.171.168l-.133 5.218.133 2.039c.006.097.06.176.171.176.109 0 .163-.079.171-.176l.152-2.039-.152-5.218c-.008-.072-.062-.168-.171-.168zm5.992 1.711c-.218 0-.429.021-.633.061-.131-2.577-2.276-4.623-4.898-4.623-.587 0-1.153.108-1.678.303-.199.074-.252.149-.252.297v9.479c0 .156.121.289.276.301h7.185c1.583 0 2.866-1.283 2.866-2.865 0-1.582-1.283-2.953-2.866-2.953z"/></svg>
+            </a>
+            <a href="https://facebook.com/jaganos" class="social-link facebook" target="_blank" title="Facebook">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="https://x.com/jaganos_ai" class="social-link twitter" target="_blank" title="X">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="https://suno.com/@jaganos" class="social-link suno" target="_blank" title="Suno">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            </a>
+        </div>
+
+        <!-- HOME PAGE -->
+        <div id="page-home" class="page active">
+            <section class="hero">
+                <h1 class="hero-title text-aluminum animate-fade-in" data-cs="JAGANOS AI" data-en="JAGANOS AI">JAGANOS AI</h1>
+                <p class="hero-subtitle animate-slide-up" data-cs="Kreativní AI umělec • Hudebník • Vizionář" data-en="Creative AI Artist • Musician • Visionary">Kreativní AI umělec • Hudebník • Vizionář</p>
+                <div class="hero-divider"></div>
+            </section>
+        </div>
+
+        <!-- ABOUT PAGE -->
+        <div id="page-about" class="page">
+            <section class="section">
+                <div class="container">
+                    <div class="about-content">
+                        <div class="about-image"></div>
+                        <h1 class="section-title text-aluminum" data-cs="O mně" data-en="About Me">O mně</h1>
+                        <p class="about-text" data-cs="JAGANOS AI je kreativní projekt, který spojuje umělou inteligenci s hudbou a vizuálním uměním. Vytvářím jedinečný obsah pomocí nejnovějších AI technologií, od hudebních skladeb po vizuální díla." data-en="JAGANOS AI is a creative project that combines artificial intelligence with music and visual art. I create unique content using the latest AI technologies, from musical compositions to visual works.">
+                            JAGANOS AI je kreativní projekt, který spojuje umělou inteligenci s hudbou a vizuálním uměním. Vytvářím jedinečný obsah pomocí nejnovějších AI technologií, od hudebních skladeb po vizuální díla.
+                        </p>
+                        <p class="about-text" data-cs="Mým cílem je prozkoumávat hranice kreativity a ukázat, jak může AI spolupracovat s lidskou představivostí na tvorbě něčeho nového a inspirativního." data-en="My goal is to explore the boundaries of creativity and show how AI can collaborate with human imagination to create something new and inspiring.">
+                            Mým cílem je prozkoumávat hranice kreativity a ukázat, jak může AI spolupracovat s lidskou představivostí na tvorbě něčeho nového a inspirativního.
+                        </p>
+                        <div class="about-stats">
+                            <div class="stat-item">
+                                <div class="stat-number text-aluminum">50+</div>
+                                <div class="stat-label" data-cs="Skladeb" data-en="Tracks">Skladeb</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number text-aluminum">100+</div>
+                                <div class="stat-label" data-cs="Videí" data-en="Videos">Videí</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number text-aluminum">10K+</div>
+                                <div class="stat-label" data-cs="Sledujících" data-en="Followers">Sledujících</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- VIDEOS PAGE -->
+        <div id="page-videos" class="page">
+            <section class="section">
+                <div class="container">
+                    <div class="section-header">
+                        <h1 class="section-title text-aluminum" data-cs="Videa" data-en="Videos">Videa</h1>
+                        <p class="section-subtitle" data-cs="Moje nejnovější video tvorba" data-en="My latest video creations">Moje nejnovější video tvorba</p>
+                    </div>
+                    <div class="grid-3">
+                        <div class="card video-card">
+                            <div style="position: relative;">
+                                <div class="card-image"></div>
+                                <div class="play-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                                </div>
+                                <span class="video-duration">3:45</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title" data-cs="Digitální sny" data-en="Digital Dreams">Digitální sny</h3>
+                                <p class="card-description" data-cs="AI generované vizuální dílo" data-en="AI generated visual artwork">AI generované vizuální dílo</p>
+                            </div>
+                        </div>
+                        <div class="card video-card">
+                            <div style="position: relative;">
+                                <div class="card-image"></div>
+                                <div class="play-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                                </div>
+                                <span class="video-duration">4:20</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title" data-cs="Neonové město" data-en="Neon City">Neonové město</h3>
+                                <p class="card-description" data-cs="Cyberpunk vizualizace" data-en="Cyberpunk visualization">Cyberpunk vizualizace</p>
+                            </div>
+                        </div>
+                        <div class="card video-card">
+                            <div style="position: relative;">
+                                <div class="card-image"></div>
+                                <div class="play-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                                </div>
+                                <span class="video-duration">5:12</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title" data-cs="Vesmírná odysea" data-en="Space Odyssey">Vesmírná odysea</h3>
+                                <p class="card-description" data-cs="Kosmická hudební cesta" data-en="Cosmic musical journey">Kosmická hudební cesta</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- MUSIC PAGE -->
+        <div id="page-music" class="page">
+            <section class="section">
+                <div class="container">
+                    <div class="section-header">
+                        <h1 class="section-title text-aluminum" data-cs="Hudba" data-en="Music">Hudba</h1>
+                        <p class="section-subtitle" data-cs="Moje AI generované skladby" data-en="My AI generated tracks">Moje AI generované skladby</p>
+                    </div>
+                    <div class="music-list">
+                        <div class="music-item">
+                            <button class="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                            </button>
+                            <div class="music-cover"></div>
+                            <div class="music-info">
+                                <div class="music-title" data-cs="Elektrické sny" data-en="Electric Dreams">Elektrické sny</div>
+                                <div class="music-artist">JAGANOS AI</div>
+                            </div>
+                            <div class="music-duration">3:42</div>
+                        </div>
+                        <div class="music-item">
+                            <button class="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                            </button>
+                            <div class="music-cover"></div>
+                            <div class="music-info">
+                                <div class="music-title" data-cs="Půlnoční kód" data-en="Midnight Code">Půlnoční kód</div>
+                                <div class="music-artist">JAGANOS AI</div>
+                            </div>
+                            <div class="music-duration">4:15</div>
+                        </div>
+                        <div class="music-item">
+                            <button class="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                            </button>
+                            <div class="music-cover"></div>
+                            <div class="music-info">
+                                <div class="music-title" data-cs="Digitální horizont" data-en="Digital Horizon">Digitální horizont</div>
+                                <div class="music-artist">JAGANOS AI</div>
+                            </div>
+                            <div class="music-duration">5:08</div>
+                        </div>
+                        <div class="music-item">
+                            <button class="play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                            </button>
+                            <div class="music-cover"></div>
+                            <div class="music-info">
+                                <div class="music-title" data-cs="Neonový puls" data-en="Neon Pulse">Neonový puls</div>
+                                <div class="music-artist">JAGANOS AI</div>
+                            </div>
+                            <div class="music-duration">3:56</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PROMPTS PAGE -->
+        <div id="page-prompts" class="page">
+            <section class="section">
+                <div class="container">
+                    <div class="section-header">
+                        <h1 class="section-title text-aluminum" data-cs="Prompty" data-en="Prompts">Prompty</h1>
+                        <p class="section-subtitle" data-cs="Kreativní prompty pro AI generování" data-en="Creative prompts for AI generation">Kreativní prompty pro AI generování</p>
+                    </div>
+                    <div class="grid-2">
+                        <div class="card prompt-card">
+                            <span class="prompt-category" data-cs="Vizuální" data-en="Visual">Vizuální</span>
+                            <p class="prompt-text">"Futuristic cityscape at night, neon lights reflecting on wet streets, cyberpunk aesthetic, ultra detailed, 8k resolution"</p>
+                            <button class="copy-btn" onclick="copyPrompt(this)">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                <span data-cs="Kopírovat" data-en="Copy">Kopírovat</span>
+                            </button>
+                        </div>
+                        <div class="card prompt-card">
+                            <span class="prompt-category" data-cs="Hudba" data-en="Music">Hudba</span>
+                            <p class="prompt-text">"Ethereal ambient electronic track with soft synth pads, gentle arpeggios, atmospheric reverb, dreamy and contemplative mood"</p>
+                            <button class="copy-btn" onclick="copyPrompt(this)">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                <span data-cs="Kopírovat" data-en="Copy">Kopírovat</span>
+                            </button>
+                        </div>
+                        <div class="card prompt-card">
+                            <span class="prompt-category" data-cs="Vizuální" data-en="Visual">Vizuální</span>
+                            <p class="prompt-text">"Abstract digital art, flowing liquid metal, chrome and gold reflections, minimalist composition, studio lighting"</p>
+                            <button class="copy-btn" onclick="copyPrompt(this)">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                <span data-cs="Kopírovat" data-en="Copy">Kopírovat</span>
+                            </button>
+                        </div>
+                        <div class="card prompt-card">
+                            <span class="prompt-category" data-cs="Video" data-en="Video">Video</span>
+                            <p class="prompt-text">"Slow motion particles floating in space, bioluminescent colors, macro photography style, depth of field, cinematic"</p>
+                            <button class="copy-btn" onclick="copyPrompt(this)">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                <span data-cs="Kopírovat" data-en="Copy">Kopírovat</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-logo text-aluminum">JAGANOS AI</div>
+                <p class="footer-text">© 2024 JAGANOS AI. <span data-cs="Všechna práva vyhrazena." data-en="All rights reserved.">Všechna práva vyhrazena.</span></p>
+            </div>
+        </footer>
+    </div>
 
     <script>
-        // Page Navigation
+        // Current language (default Czech)
+        let currentLang = 'cs';
+
+        // Enter site from welcome page
+        function enterSite() {
+            document.getElementById('welcome-page').classList.add('hidden');
+            document.getElementById('main-site').classList.remove('hidden');
+        }
+
+        // Show specific page
         function showPage(pageId) {
             // Hide all pages
-            document.querySelectorAll('.page, #welcome').forEach(page => {
-                page.style.display = 'none';
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
             });
             
-            // Show/hide navigation based on page
-            const navigation = document.getElementById('navigation');
-            const socialLinks = document.getElementById('socialLinks');
-            const footer = document.getElementById('footer');
+            // Show selected page
+            document.getElementById('page-' + pageId).classList.add('active');
             
-            if (pageId === 'welcome') {
-                document.getElementById('welcome').style.display = 'flex';
-                navigation.style.display = 'none';
-                socialLinks.style.display = 'none';
-                footer.style.display = 'none';
-            } else {
-                document.getElementById(pageId).style.display = 'block';
-                navigation.style.display = 'flex';
-                socialLinks.style.display = 'flex';
-                footer.style.display = 'block';
-            }
-            
-            // Update active nav link
+            // Update nav links
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('active');
-                if (link.getAttribute('href') === '#' + pageId) {
+                if (link.dataset.page === pageId) {
                     link.classList.add('active');
                 }
             });
+
+            // Close mobile menu
+            document.getElementById('nav-links').classList.remove('open');
             
             // Scroll to top
             window.scrollTo(0, 0);
-            
-            // Close mobile menu
-            document.getElementById('navLinks').classList.remove('active');
         }
-        
-        // Mobile Menu Toggle
+
+        // Toggle mobile menu
         function toggleMobileMenu() {
-            document.getElementById('navLinks').classList.toggle('active');
+            document.getElementById('nav-links').classList.toggle('open');
         }
-        
-        // Language Toggle
-        let currentLanguage = 'CZ';
-        
-        const translations = {
-            CZ: {
-                enter: 'Vstoupit',
-                home: 'Domů',
-                about: 'O mně',
-                videos: 'Videa',
-                music: 'Hudba',
-                prompt: 'Prompt',
-                heroTitle: 'Vytvářím Digitální Zážitky',
-                heroDescription: 'Vítejte v mém kreativním prostoru. Prozkoumejte mou sbírku videí, hudby a digitálního umění.',
-                watchVideos: 'Sledovat Videa',
-                listenMusic: 'Poslouchat Hudbu'
-            },
-            EN: {
-                enter: 'Enter',
-                home: 'Home',
-                about: 'About',
-                videos: 'Videos',
-                music: 'Music',
-                prompt: 'Prompt',
-                heroTitle: 'Creating Digital Experiences',
-                heroDescription: 'Welcome to my creative space. Explore my collection of videos, music and digital art.',
-                watchVideos: 'Watch Videos',
-                listenMusic: 'Listen to Music'
-            }
-        };
-        
+
+        // Language switching
         function setLanguage(lang) {
-            currentLanguage = lang;
+            currentLang = lang;
             
-            // Update language buttons
+            // Update lang buttons
             document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.textContent === lang) {
-                    btn.classList.add('active');
-                }
+                btn.classList.toggle('active', btn.dataset.lang === lang);
             });
             
-            // Store language preference
-            localStorage.setItem('language', lang);
+            // Update all translatable elements
+            document.querySelectorAll('[data-' + lang + ']').forEach(el => {
+                const text = el.dataset[lang];
+                if (text) {
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = text;
+                    } else {
+                        el.textContent = text;
+                    }
+                }
+            });
         }
-        
+
+        // Copy prompt to clipboard
+        function copyPrompt(button) {
+            const promptText = button.parentElement.querySelector('.prompt-text').textContent;
+            navigator.clipboard.writeText(promptText).then(() => {
+                button.classList.add('copied');
+                const span = button.querySelector('span');
+                const originalText = span.textContent;
+                span.textContent = currentLang === 'cs' ? 'Zkopírováno!' : 'Copied!';
+                
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                    span.textContent = originalText;
+                }, 2000);
+            });
+        }
+
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            // Check for stored language
-            const storedLang = localStorage.getItem('language');
-            if (storedLang) {
-                setLanguage(storedLang);
-            }
-            
-            // Show welcome page by default
-            showPage('welcome');
-        });
-        
-        // Handle browser back/forward
-        window.addEventListener('hashchange', function() {
-            const hash = window.location.hash.slice(1) || 'welcome';
-            showPage(hash);
+            // Nav link clicks
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showPage(this.dataset.page);
+                });
+            });
+
+            // Language button clicks
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    setLanguage(this.dataset.lang);
+                });
+            });
+
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                const nav = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            });
         });
     </script>
 </body>
