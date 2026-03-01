@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Custom Cast Receiver</title>
+    <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #000; color: #fff; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        #message { font-size: 3em; text-align: center; }
+    </style>
+</head>
+<body>
+    <div id="message">Waiting for Android App...</div>
+
+    <script>
+        const context = cast.framework.CastReceiverContext.getInstance();
+        const playerManager = context.getPlayerManager();
+
+        // Optional: Listen for custom messages from your Android App
+        const CUSTOM_CHANNEL = 'urn:x-cast:com.yourdomain.custom';
+        context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
+            document.getElementById('message').innerText = "Received: " + customEvent.data.text;
+        });
+
+        // Start the receiver
+        context.start();
+    </script>
+</body>
+</html>
